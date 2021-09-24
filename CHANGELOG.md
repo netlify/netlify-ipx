@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/netlify/netlify-ipx/compare/v0.0.3...v0.0.4) (2021-09-24)
+
+
+### Bug Fixes
+
+* decode uri ([008de0f](https://github.com/netlify/netlify-ipx/commit/008de0f9584c11f97934c1be61bf072e3d386d72))
+
 ### [0.0.3](https://github.com/netlify/netlify-ipx/compare/v0.0.2...v0.0.3) (2021-09-24)
 
 
