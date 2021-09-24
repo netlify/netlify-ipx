@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/netlify/netlify-ipx/compare/v0.0.2...v0.0.3) (2021-09-24)
+
+
+### Bug Fixes
+
+* downgrade node fetch and allow manual base path ([19bdad8](https://github.com/netlify/netlify-ipx/commit/19bdad8e8088811111c9b415c67272e69799e384))
+
 ### 0.0.2 (2021-09-24)
 
 
