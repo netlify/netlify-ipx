@@ -8,8 +8,9 @@ import { loadSourceImage } from './http'
 
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
+  basePath = '/_ipx',
   ...opts
-}: Partial<IPXOptions> & { cacheDir?: string } = {}) {
+}: Partial<IPXOptions> & { cacheDir?: string, basePath?: string } = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
 
   const handler: Handler = async (event, _context) => {
@@ -18,7 +19,7 @@ export function createIPXHandler ({
     let domains = opts.domains || []
     const requestEtag = event.headers['if-none-match']
     const url = event.path
-      .replace('/.netlify/functions/ipx', '')
+      .replace(basePath, '')
       .replace(/index\.htm$/, '')
 
     const [modifiers = '_', ...segments] = url.substr(1).split('/')

@@ -1,7 +1,7 @@
 {
   "name": "@netlify/ipx",
   "version": "0.0.2",
-  "description": "on-demand image optimazation for Netlify",
+  "description": "on-demand image optimization for Netlify",
   "repository": "netlify/netlify-ipx",
   "license": "MIT",
   "exports": {
@@ -11,6 +11,7 @@
     }
   },
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -29,7 +30,7 @@
     "ipx": "^0.7.0",
     "mkdirp": "^1.0.4",
     "murmurhash": "^2.0.0",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^2.0.0",
     "ufo": "^0.7.9",
     "unstorage": "^0.2.8"
   },
