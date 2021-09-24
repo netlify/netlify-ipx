@@ -18,16 +18,14 @@ export function createIPXHandler ({
     const protocol = event.headers['x-forwarded-proto'] || 'http'
     let domains = opts.domains || []
     const requestEtag = event.headers['if-none-match']
-    const url = event.path
-      .replace(basePath, '')
-      .replace(/index\.htm$/, '')
+    const url = event.path.replace(basePath, '')
 
     const [modifiers = '_', ...segments] = url.substr(1).split('/')
-    let id = segments.join('/')
+    let id = decodeURIComponent(segments.join('/'))
 
     const isLocal = !id.startsWith('http')
     if (isLocal) {
-      id = `${protocol}://${host}/${id}`
+      id = `${protocol}://${host}${id}`
     } else {
       if (typeof domains === 'string') {
         domains = (domains as string).split(',').map(s => s.trim())
