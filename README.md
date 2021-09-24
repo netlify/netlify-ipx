@@ -6,20 +6,20 @@
 
 ## Usage
 
-Add `netlify-plugin-ipx` as `devDependency`:
+Add `@netlify/ipx` as `devDependency`:
 
 ```sh
 # npm
-npm i -D netlify-plugin-ipx
+npm i -D @netlify/ipx
 
 # yarn
-yarn add --dev netlify-plugin-ipx
+yarn add --dev @netlify/ipx
 ```
 
 Create `netlify/functions/ipx.ts`:
 
 ```ts
-import { createIPXHandler } from 'netlify-plugin-ipx/function'
+import { createIPXHandler } from '@netlify/ipx'
 
 export const handler = createIPXHandler({
   domains: ['images.unsplash.com']

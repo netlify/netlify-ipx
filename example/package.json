@@ -1,6 +1,6 @@
 {
   "private": true,
   "devDependencies": {
-    "netlify-plugin-ipx": "latest"
+    "@netlify/ipx": "link:.."
   }
 }

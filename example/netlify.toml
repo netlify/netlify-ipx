@@ -1,7 +1,5 @@
 [build]
-  publish = "public/"
+publish = "public/"
 
-# [[plugins]]
-# package = "netlify-plugin-ipx"
-#  [plugins.inputs]
-#  domains = ['images.unsplash.com']
+[functions]
+external_node_modules = ["fsevents"]

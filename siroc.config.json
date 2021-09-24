@@ -1,0 +1,8 @@
+{
+    "rollup": {
+      "externals": [
+          "fsevents"
+      ]
+    }
+  }
+  
