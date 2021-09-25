@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ESNext",
+    "target": "ES2018",
+    "module": "commonjs",
     "moduleResolution": "Node",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "declaration": true,
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

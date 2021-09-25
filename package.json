@@ -4,19 +4,13 @@
   "description": "on-demand image optimization for Netlify",
   "repository": "netlify/netlify-ipx",
   "license": "MIT",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "siroc build",
+    "build": "tsc",
     "prepack": "yarn build",
     "lint": "yarn eslint --ext .ts,.js,.mjs src",
     "test": "yarn lint",
@@ -41,7 +35,7 @@
     "@types/fs-extra": "^9.0.12",
     "eslint": "^7.29.0",
     "jiti": "^1.10.1",
-    "siroc": "^0.11.1",
-    "standard-version": "^9.3.0"
+    "standard-version": "^9.3.0",
+    "typescript": "^4.4.3"
   }
 }

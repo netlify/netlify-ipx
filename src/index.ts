@@ -10,7 +10,7 @@ export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx',
   ...opts
-}: Partial<IPXOptions> & { cacheDir?: string, basePath?: string } = {}) {
+}: Partial<IPXOptions> & { cacheDir?: string; basePath?: string } = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
 
   const handler: Handler = async (event, _context) => {
