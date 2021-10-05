@@ -25,14 +25,14 @@ export function createIPXHandler ({
     const requestHeaders: Record<string, string> = {}
     const isLocal = !id.startsWith('http')
     if (isLocal) {
-      id = `${protocol}://${host}${id}`
-    } else {
+      id = `${protocol}://${host}${id.startsWith('/') ? '' : '/'}${id}`
       if (event.headers.cookie) {
         requestHeaders.cookie = event.headers.cookie
       }
       if (event.headers.authorization) {
         requestHeaders.authorization = event.headers.authorization
       }
+    } else {
       if (typeof domains === 'string') {
         domains = (domains as string).split(',').map(s => s.trim())
       }
