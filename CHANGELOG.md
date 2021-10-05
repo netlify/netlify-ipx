@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/netlify/netlify-ipx/compare/v0.0.5...v0.0.6) (2021-10-05)
+
+
+### Features
+
+* pass auth headers to local requests ([7fa6709](https://github.com/netlify/netlify-ipx/commit/7fa6709c8b81fc553de9f0fafef6df60c2b35107))
+
 ### [0.0.5](https://github.com/netlify/netlify-ipx/compare/v0.0.4...v0.0.5) (2021-09-25)
 
 ### [0.0.4](https://github.com/netlify/netlify-ipx/compare/v0.0.3...v0.0.4) (2021-09-24)
