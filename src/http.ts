@@ -71,7 +71,10 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
     return {
       response: {
         statusCode: GATEWAY_ERROR,
-        body: `Error loading source image: ${e.message}`
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: `Error loading source image: ${e.message} ${url}`
       }
     }
   }
@@ -113,6 +116,9 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
     return {
       response: {
         statusCode: GATEWAY_ERROR,
+        headers: {
+          'Content-Type': 'text/plain'
+        },
         body: 'Source is not an image'
       }
     }
