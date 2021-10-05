@@ -22,11 +22,17 @@ export function createIPXHandler ({
 
     const [modifiers = '_', ...segments] = url.substr(1).split('/')
     let id = decodeURIComponent(segments.join('/'))
-
+    const requestHeaders: Record<string, string> = {}
     const isLocal = !id.startsWith('http')
     if (isLocal) {
       id = `${protocol}://${host}${id}`
     } else {
+      if (event.headers.cookie) {
+        requestHeaders.cookie = event.headers.cookie
+      }
+      if (event.headers.authorization) {
+        requestHeaders.authorization = event.headers.authorization
+      }
       if (typeof domains === 'string') {
         domains = (domains as string).split(',').map(s => s.trim())
       }
@@ -56,7 +62,8 @@ export function createIPXHandler ({
       url: id,
       requestEtag,
       modifiers,
-      isLocal
+      isLocal,
+      requestHeaders
     })
 
     if (response) {

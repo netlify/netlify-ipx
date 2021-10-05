@@ -21,7 +21,16 @@ export interface SourceImageResult {
   responseEtag?: string;
 }
 
-export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, isLocal }): Promise<SourceImageResult> {
+export interface SourceImageOptions {
+  cacheDir: string
+  url: string
+  requestHeaders?: Record<string, string>
+  modifiers: string
+  isLocal?: boolean
+  requestEtag?: string
+}
+
+export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, isLocal, requestHeaders = {} }: SourceImageOptions): Promise<SourceImageResult> {
   const fileCache = join(cacheDir, 'cache')
   const metadataCache = join(cacheDir, 'metadata')
 
@@ -34,7 +43,7 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
   const cacheKey = String(murmurhash(url))
   const inputCacheFile = join(fileCache, cacheKey)
 
-  const headers = new Headers()
+  const headers = new Headers(requestHeaders)
   let sourceMetadata: SourceMetadata | undefined
   if (existsSync(inputCacheFile)) {
     sourceMetadata = (await metadataStore.getItem(`source:${cacheKey}`)) as
