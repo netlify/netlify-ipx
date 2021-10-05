@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/netlify/netlify-ipx/compare/v0.0.6...v0.0.7) (2021-10-05)
+
+
+### Bug Fixes
+
+* correct auth logic ([7097932](https://github.com/netlify/netlify-ipx/commit/709793219dba6bff8a3bcfccb65420abd3c7982f))
+* demo ([a73dee0](https://github.com/netlify/netlify-ipx/commit/a73dee0d35bd3cc2efeacbbf6ec66664c2a73933))
+* set content-type for errors ([bb374aa](https://github.com/netlify/netlify-ipx/commit/bb374aac5b296303ecde76498b37306e332ec54e))
+
 ### [0.0.6](https://github.com/netlify/netlify-ipx/compare/v0.0.5...v0.0.6) (2021-10-05)
 
 
