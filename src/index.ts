@@ -82,7 +82,14 @@ export function createIPXHandler ({
       typeof res.body === 'string' ? res.body : res.body.toString('base64')
 
     res.headers.etag = responseEtag || etag(body)
+    delete res.headers['Last-Modified']
 
+    if (requestEtag && requestEtag === res.headers.etag) {
+      return {
+        statusCode: 304,
+        message: 'Not Modified'
+      }
+    }
     return {
       statusCode: res.statusCode,
       message: res.statusMessage,
