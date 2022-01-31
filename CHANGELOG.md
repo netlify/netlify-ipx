@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/netlify/netlify-ipx/compare/v0.0.7...v0.0.9) (2022-01-31)
+
+
+### Bug Fixes
+
+* improve conditional responses ([d9c6850](https://github.com/netlify/netlify-ipx/commit/d9c68501aa8366a6eb7a608599cf38a0f9885c45))
+
 ### [0.0.7](https://github.com/netlify/netlify-ipx/compare/v0.0.6...v0.0.7) (2021-10-05)
 
 
