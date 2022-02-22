@@ -2,5 +2,6 @@ import { createIPXHandler } from '@netlify/ipx'
 
 export const handler = createIPXHandler({
   domains: ['images.unsplash.com'],
-  basePath: '/.netlify/builders/ipx/'
+  propsEncoding: 'base64',
+  basePath: '/_gatsby/image/'
 })
