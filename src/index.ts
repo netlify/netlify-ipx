@@ -5,12 +5,14 @@ import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
 import { loadSourceImage } from './http'
+import { decodeBase64Params } from './utils'
 
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx',
+  propsEncoding,
   ...opts
-}: Partial<IPXOptions> & { cacheDir?: string; basePath?: string } = {}) {
+}: Partial<IPXOptions> & { cacheDir?: string; basePath?: string, propsEncoding?: 'base64' } = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
 
   const handler: Handler = async (event, _context) => {
@@ -20,8 +22,22 @@ export function createIPXHandler ({
     const requestEtag = event.headers['if-none-match']
     const url = event.path.replace(basePath, '')
 
-    const [modifiers = '_', ...segments] = url.substr(1).split('/')
+    // eslint-disable-next-line prefer-const
+    let [modifiers = '_', ...segments] = url.slice(1).split('/')
     let id = decodeURIComponent(segments.join('/'))
+
+    if (propsEncoding === 'base64') {
+      const params = decodeBase64Params(url)
+      if (params.error) {
+        return {
+          statusCode: 400,
+          body: params.error
+        }
+      }
+      id = params.id
+      modifiers = params.modifiers
+    }
+
     const requestHeaders: Record<string, string> = {}
     const isLocal = !id.startsWith('http')
     if (isLocal) {
