@@ -22,16 +22,26 @@ export function decodeBase64Params (path:string) {
 
   //  [ipx modifier name, gatsby modifier name]
   const props = [
-    ['width', 'w'],
-    ['height', 'h'],
-    ['format', 'fm']
+    ['f', 'fm'],
+    ['crop', 'pos'],
+    ['q', 'q']
   ]
 
   const modifiers: Array<string> = []
+  const w = params.get('w')
+  const h = params.get('h')
+  if (w && h) {
+    modifiers.push(`s_${w}x${h}`)
+  } else {
+    props.push(['w', 'w'], ['h', 'h'])
+  }
 
   for (const [modifier, prop] of props) {
-    const value = params.get(prop)
+    let value = params.get(prop)
     if (value) {
+      if (prop === 'pos') {
+        value = value.replace(',', ' ')
+      }
       modifiers.push(`${modifier}_${value}`)
     }
   }
