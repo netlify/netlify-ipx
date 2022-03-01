@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/netlify/netlify-ipx/compare/v0.0.10...v1.0.0) (2022-03-01)
+
+
+### Features
+
+* add support for quality and position args ([#7](https://github.com/netlify/netlify-ipx/issues/7)) ([1f65eb7](https://github.com/netlify/netlify-ipx/commit/1f65eb77180f520380c298a0c3f3e408a3f64c1e))
+
+
+### Bug Fixes
+
+* support bypassing domain check ([#8](https://github.com/netlify/netlify-ipx/issues/8)) ([94caa15](https://github.com/netlify/netlify-ipx/commit/94caa15762c565dd3702aac1fd34a7781cdf13dc))
+
 ### [0.0.10](https://github.com/netlify/netlify-ipx/compare/v0.0.9...v0.0.10) (2022-02-22)
 
 
