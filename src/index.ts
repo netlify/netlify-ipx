@@ -7,12 +7,20 @@ import etag from 'etag'
 import { loadSourceImage } from './http'
 import { decodeBase64Params } from './utils'
 
+export interface IPXHandlerOptions extends Partial<IPXOptions> {
+  cacheDir?: string
+  basePath?: string
+  propsEncoding?: 'base64' | undefined
+  bypassDomainCheck?: boolean
+}
+
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
   propsEncoding,
+  bypassDomainCheck,
   ...opts
-}: Partial<IPXOptions> & { cacheDir?: string; basePath?: string, propsEncoding?: 'base64' } = {}) {
+}: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
@@ -67,10 +75,10 @@ export function createIPXHandler ({
           body: 'Hostname is missing: ' + id
         }
       }
-      if (!hosts.find(host => parsedUrl.host === host)) {
+      if (!bypassDomainCheck && !hosts.find(host => parsedUrl.host === host)) {
         return {
           statusCode: 403,
-          body: 'Hostname is missing: ' + parsedUrl.host
+          body: 'Hostname not on allowlist: ' + parsedUrl.host
         }
       }
     }
