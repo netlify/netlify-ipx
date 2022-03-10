@@ -107,12 +107,15 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
     return {
       response: {
         statusCode: isLocal ? response.status : GATEWAY_ERROR,
-        body: `Source image server responsed with ${response.status} ${response.statusText}`
+        body: `Source image server responsed with ${response.status} ${response.statusText}`,
+        headers: {
+          'Content-Type': 'text/plain'
+        }
       }
     }
   }
-
-  if (!response.headers.get('content-type').startsWith('image/')) {
+  const contentType = response.headers.get('content-type')
+  if (contentType && !contentType.startsWith('image/')) {
     return {
       response: {
         statusCode: GATEWAY_ERROR,
