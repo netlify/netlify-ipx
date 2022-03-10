@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/netlify/netlify-ipx/compare/v1.0.0...v1.0.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* handle empty content-type header ([#9](https://github.com/netlify/netlify-ipx/issues/9)) ([2650b33](https://github.com/netlify/netlify-ipx/commit/2650b334dfb4c971f41b2bd77f653554528eca35))
+
 ## [1.0.0](https://github.com/netlify/netlify-ipx/compare/v0.0.10...v1.0.0) (2022-03-01)
 
 
