@@ -1,3 +1,5 @@
+import { ParsedURL } from 'ufo'
+import { makeRe } from 'micromatch'
 /**
  * Support for Gatsby-style base64-encoded URLs
  */
@@ -47,4 +49,17 @@ export function decodeBase64Params (path:string) {
   }
 
   return { id, modifiers: modifiers.join(',') }
+}
+
+// NextJS RemotePattern
+export interface RemotePattern {
+  protocol?: 'http' | 'https';
+  hostname: string;
+  port?: string;
+  pathname?: string;
+}
+
+export function doPatternsMatchUrl (remotePatterns: RemotePattern, url: ParsedURL) {
+  console.log({ remotePatterns, url })
+  return true
 }

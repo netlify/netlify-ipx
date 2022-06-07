@@ -5,13 +5,13 @@ import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
 import { loadSourceImage } from './http'
-import { decodeBase64Params } from './utils'
-
+import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
   cacheDir?: string
   basePath?: string
   propsEncoding?: 'base64' | undefined
   bypassDomainCheck?: boolean
+  remotePatterns?: RemotePattern[]
 }
 
 export function createIPXHandler ({
@@ -19,6 +19,7 @@ export function createIPXHandler ({
   basePath = '/_ipx/',
   propsEncoding,
   bypassDomainCheck,
+  remotePatterns,
   ...opts
 }: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
@@ -29,6 +30,7 @@ export function createIPXHandler ({
     const host = event.headers.host
     const protocol = event.headers['x-forwarded-proto'] || 'http'
     let domains = opts.domains || []
+    const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
     const url = event.path.replace(basePath, '')
 
@@ -59,12 +61,6 @@ export function createIPXHandler ({
         requestHeaders.authorization = event.headers.authorization
       }
     } else {
-      if (typeof domains === 'string') {
-        domains = (domains as string).split(',').map(s => s.trim())
-      }
-
-      const hosts = domains.map(domain => parseURL(domain, 'https://').host)
-
       // Parse id as URL
       const parsedUrl = parseURL(id, 'https://')
 
@@ -75,10 +71,34 @@ export function createIPXHandler ({
           body: 'Hostname is missing: ' + id
         }
       }
-      if (!bypassDomainCheck && !hosts.find(host => parsedUrl.host === host)) {
-        return {
-          statusCode: 403,
-          body: 'Hostname not on allowlist: ' + parsedUrl.host
+
+      if (!bypassDomainCheck) {
+        if (domains.length > 0) {
+          if (typeof domains === 'string') {
+            domains = (domains as string).split(',').map(s => s.trim())
+          }
+
+          const hosts = domains.map(domain => parseURL(domain, 'https://').host)
+          console.log('hi')
+
+          if (!hosts.find(host => parsedUrl.host === host)) {
+            return {
+              statusCode: 403,
+              body: 'Hostname not on allowlist: ' + parsedUrl.host
+            }
+          }
+        } else if (remoteURLPatterns.length > 0) {
+          // do stuff with remotePatterns
+          const isThereAMatch = remoteURLPatterns.find((remotePattern) => {
+            return doPatternsMatchUrl(remotePattern, parsedUrl)
+          })
+
+          if (!isThereAMatch) {
+            return {
+              statusCode: 403,
+              body: 'Remote pattern not on allowlist: ' + parsedUrl.host
+            }
+          }
         }
       }
     }
