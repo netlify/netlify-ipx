@@ -79,7 +79,6 @@ export function createIPXHandler ({
           }
 
           const hosts = domains.map(domain => parseURL(domain, 'https://').host)
-          console.log('hi')
 
           if (!hosts.find(host => parsedUrl.host === host)) {
             return {
@@ -88,15 +87,14 @@ export function createIPXHandler ({
             }
           }
         } else if (remoteURLPatterns.length > 0) {
-          // do stuff with remotePatterns
-          const isThereAMatch = remoteURLPatterns.find((remotePattern) => {
+          const matchingRemotePattern = remoteURLPatterns.find((remotePattern) => {
             return doPatternsMatchUrl(remotePattern, parsedUrl)
           })
 
-          if (!isThereAMatch) {
+          if (!matchingRemotePattern) {
             return {
               statusCode: 403,
-              body: 'Remote pattern not on allowlist: ' + parsedUrl.host
+              body: 'URL does not match any remotePatterns: ' + id
             }
           }
         }

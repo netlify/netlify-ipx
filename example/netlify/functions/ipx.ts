@@ -1,6 +1,11 @@
 import { createIPXHandler } from '@netlify/ipx'
 
 export const handler = createIPXHandler({
-  domains: ['images.unsplash.com'],
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'images.unsplash.com'
+    }
+  ],
   basePath: '/.netlify/builders/ipx/'
 })
