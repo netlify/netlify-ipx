@@ -44,7 +44,7 @@ Resize and change format for a remote url:
 
 ## Remote Patterns
 
-Instead of setting an allowlist on `domains`, you may wish to use the option `remotePatterns`. This method allows wildcards for hostname as well as pathname segments.
+Instead of setting an allowlist on `domains`, you may wish to use the option `remotePatterns`. This method allows wildcards in `hostname` and `pathname` segments.
 
 `remotePatterns` is an array that contains RemotePattern objects:
 
@@ -79,8 +79,8 @@ export const handler = createIPXHandler({
 ```ts
 remotePatterns: [
   {
-    hostname: '*.example.com' // * = match a single path segment (in this case a subdomain)
-    pathname: '/blog/**' // ** = match any number of path segments
+    hostname: '*.example.com' // * = match a single path segment or subdomain
+    pathname: '/blog/**' // ** = match any number of path segments or subdomains
   }
 ]
 ```
