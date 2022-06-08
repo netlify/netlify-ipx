@@ -52,7 +52,6 @@ export function decodeBase64Params (path:string) {
   return { id, modifiers: modifiers.join(',') }
 }
 
-// NextJS RemotePattern
 export interface RemotePattern {
   protocol?: 'http' | 'https';
   hostname: string;
