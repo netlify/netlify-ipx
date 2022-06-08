@@ -73,6 +73,9 @@ export function createIPXHandler ({
       }
 
       if (!bypassDomainCheck) {
+        let domainAllowed = true
+        let remotePatternAllowed = true
+
         if (domains.length > 0) {
           if (typeof domains === 'string') {
             domains = (domains as string).split(',').map(s => s.trim())
@@ -81,21 +84,24 @@ export function createIPXHandler ({
           const hosts = domains.map(domain => parseURL(domain, 'https://').host)
 
           if (!hosts.find(host => parsedUrl.host === host)) {
-            return {
-              statusCode: 403,
-              body: 'Hostname not on allowlist: ' + parsedUrl.host
-            }
+            domainAllowed = false
           }
-        } else if (remoteURLPatterns.length > 0) {
+        }
+
+        if (remoteURLPatterns.length > 0) {
           const matchingRemotePattern = remoteURLPatterns.find((remotePattern) => {
             return doPatternsMatchUrl(remotePattern, parsedUrl)
           })
 
           if (!matchingRemotePattern) {
-            return {
-              statusCode: 403,
-              body: 'URL does not match any remotePatterns: ' + id
-            }
+            remotePatternAllowed = false
+          }
+        }
+
+        if (!domainAllowed || !remotePatternAllowed) {
+          return {
+            statusCode: 403,
+            body: 'URL not on allowlist: ' + id
           }
         }
       }
