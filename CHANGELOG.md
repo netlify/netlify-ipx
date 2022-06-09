@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/netlify/netlify-ipx/compare/v1.0.1...v1.1.0) (2022-06-09)
+
+
+### Features
+
+* add support for NextJS remotePatterns ([#11](https://github.com/netlify/netlify-ipx/issues/11)) ([06ffaf9](https://github.com/netlify/netlify-ipx/commit/06ffaf94481c603578d9150108bd492c296f35df))
+
 ### [1.0.1](https://github.com/netlify/netlify-ipx/compare/v1.0.0...v1.0.1) (2022-03-10)
 
 
