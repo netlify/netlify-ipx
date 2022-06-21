@@ -114,18 +114,6 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
       }
     }
   }
-  const contentType = response.headers.get('content-type')
-  if (contentType && !contentType.startsWith('image/')) {
-    return {
-      response: {
-        statusCode: GATEWAY_ERROR,
-        headers: {
-          'Content-Type': 'text/plain'
-        },
-        body: 'Source is not an image'
-      }
-    }
-  }
 
   const outfile = createWriteStream(inputCacheFile)
   await new Promise((resolve, reject) => {
