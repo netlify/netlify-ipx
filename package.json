@@ -26,7 +26,7 @@
     "mkdirp": "^1.0.4",
     "murmurhash": "^2.0.0",
     "node-fetch": "^2.0.0",
-    "ufo": "^0.7.11",
+    "ufo": "^0.8.0",
     "unstorage": "^0.2.8"
   },
   "devDependencies": {
