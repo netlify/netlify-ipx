@@ -1,7 +1,9 @@
 [build]
-publish = "public/"
+command = "yarn build"
+publish = "example/public/"
 
 [functions]
+directory = "example/netlify/functions/"
 external_node_modules = ["fsevents"]
 
 [[redirects]]
