@@ -14,7 +14,6 @@
     "prepack": "yarn build",
     "lint": "yarn eslint --ext .ts,.js,.mjs src",
     "test": "yarn lint",
-    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
     "dev": "cd example && netlify dev"
   },
   "dependencies": {
@@ -37,7 +36,6 @@
     "@types/node-fetch": "^2.6.1",
     "eslint": "^7.29.0",
     "jiti": "^1.13.0",
-    "standard-version": "^9.3.0",
     "typescript": "^4.6.2"
   }
 }
