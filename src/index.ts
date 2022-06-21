@@ -29,7 +29,7 @@ export function createIPXHandler ({
   const handler: Handler = async (event, _context) => {
     const host = event.headers.host
     const protocol = event.headers['x-forwarded-proto'] || 'http'
-    let domains = opts.domains || []
+    let domains = (opts as IPXOptions).domains || []
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
     const url = event.path.replace(basePath, '')
