@@ -2,5 +2,8 @@
   "extends": [
     "@nuxtjs/eslint-config-typescript"
   ],
-  "ignorePatterns": "dist"
+  "ignorePatterns": "dist",
+  "rules": {
+    "import/named": "off"
+  }
 }
