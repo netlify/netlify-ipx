@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://www.github.com/netlify/netlify-ipx/compare/v1.1.0...v1.1.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-extra to v10.1.0 ([#27](https://www.github.com/netlify/netlify-ipx/issues/27)) ([6230efb](https://www.github.com/netlify/netlify-ipx/commit/6230efb3c0fa8c9fb0a8713b13ab27e47fa898d1))
+* **deps:** update dependency ipx to v0.9.6 ([#18](https://www.github.com/netlify/netlify-ipx/issues/18)) ([0e20145](https://www.github.com/netlify/netlify-ipx/commit/0e20145ab0fd14d4a5468755792a03db08f0bddd))
+* **deps:** update dependency murmurhash to v2.0.1 ([#19](https://www.github.com/netlify/netlify-ipx/issues/19)) ([ddbe8bf](https://www.github.com/netlify/netlify-ipx/commit/ddbe8bf3ba9085dfaa1703f1470b0e173da8ed19))
+* **deps:** update dependency ufo to ^0.8.0 ([#21](https://www.github.com/netlify/netlify-ipx/issues/21)) ([cbdbb69](https://www.github.com/netlify/netlify-ipx/commit/cbdbb6958838200b2ab64913c24ebb55ca476354))
+* **deps:** update dependency unstorage to ^0.5.0 ([#24](https://www.github.com/netlify/netlify-ipx/issues/24)) ([d32cc1f](https://www.github.com/netlify/netlify-ipx/commit/d32cc1f71ef29ec74e8e437f58ded1debb7e2759))
+* remove content-type check ([#16](https://www.github.com/netlify/netlify-ipx/issues/16)) ([604a3d2](https://www.github.com/netlify/netlify-ipx/commit/604a3d240ce6c680c45bc609cb1fc5629b679790))
+
 ## [1.1.0](https://github.com/netlify/netlify-ipx/compare/v1.0.1...v1.1.0) (2022-06-09)
 
 
