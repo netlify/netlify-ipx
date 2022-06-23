@@ -30,11 +30,11 @@
   },
   "devDependencies": {
     "@netlify/ipx": "link:.",
-    "@nuxtjs/eslint-config-typescript": "^6.0.1",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@types/etag": "^1.8.1",
     "@types/fs-extra": "^9.0.13",
     "@types/node-fetch": "^2.6.1",
-    "eslint": "^7.29.0",
+    "eslint": "8.18.0",
     "jiti": "^1.13.0",
     "typescript": "^4.6.2"
   }
