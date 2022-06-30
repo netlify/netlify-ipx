@@ -82,7 +82,7 @@ export function createIPXHandler ({
 
           const hosts = domains.map(domain => parseURL(domain, 'https://').host)
 
-          if (hosts.find(host => parsedUrl.host === host)) {
+          if (hosts.includes(parsedUrl.host)) {
             domainAllowed = true
           }
         }
@@ -98,6 +98,8 @@ export function createIPXHandler ({
         }
 
         if (!domainAllowed) {
+          console.log(`Domains: ${JSON.stringify(domains)}`)
+          console.log(`RemotePatterns: ${JSON.stringify(remoteURLPatterns)}`)
           return {
             statusCode: 403,
             body: 'URL not on allowlist: ' + id
