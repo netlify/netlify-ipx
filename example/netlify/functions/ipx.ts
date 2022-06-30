@@ -8,7 +8,7 @@ export const handler = createIPXHandler({
     }
   ],
   domains: [
-    'netlify.com'
+    'www.netlify.com'
   ],
   basePath: '/.netlify/builders/ipx/'
 })
