@@ -73,8 +73,7 @@ export function createIPXHandler ({
       }
 
       if (!bypassDomainCheck) {
-        let domainAllowed = true
-        let remotePatternAllowed = true
+        let domainAllowed = false
 
         if (domains.length > 0) {
           if (typeof domains === 'string') {
@@ -83,8 +82,8 @@ export function createIPXHandler ({
 
           const hosts = domains.map(domain => parseURL(domain, 'https://').host)
 
-          if (!hosts.find(host => parsedUrl.host === host)) {
-            domainAllowed = false
+          if (hosts.find(host => parsedUrl.host === host)) {
+            domainAllowed = true
           }
         }
 
@@ -93,12 +92,12 @@ export function createIPXHandler ({
             return doPatternsMatchUrl(remotePattern, parsedUrl)
           })
 
-          if (!matchingRemotePattern) {
-            remotePatternAllowed = false
+          if (matchingRemotePattern) {
+            domainAllowed = true
           }
         }
 
-        if (!domainAllowed || !remotePatternAllowed) {
+        if (!domainAllowed) {
           return {
             statusCode: 403,
             body: 'URL not on allowlist: ' + id
