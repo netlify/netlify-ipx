@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.3](https://github.com/netlify/netlify-ipx/compare/v1.1.2...v1.1.3) (2022-06-30)
+
+
+### Bug Fixes
+
+* remote patterns logic ([#42](https://github.com/netlify/netlify-ipx/issues/42)) ([4e775ae](https://github.com/netlify/netlify-ipx/commit/4e775ae3f6a505075bc5293cb880b8fb1b6b7f71))
+
 ### [1.1.2](https://www.github.com/netlify/netlify-ipx/compare/v1.1.1...v1.1.2) (2022-06-23)
 
 
