@@ -98,8 +98,10 @@ export function createIPXHandler ({
         }
 
         if (!domainAllowed) {
-          console.log(`Domains: ${JSON.stringify(domains)}`)
-          console.log(`RemotePatterns: ${JSON.stringify(remoteURLPatterns)}`)
+          console.log(`URL not on allowlist. Values provided are:
+            Domains: ${JSON.stringify(domains)}
+            RemotePatterns: ${JSON.stringify(remoteURLPatterns)}
+          `)
           return {
             statusCode: 403,
             body: 'URL not on allowlist: ' + id
