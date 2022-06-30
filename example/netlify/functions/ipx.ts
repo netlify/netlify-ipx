@@ -7,5 +7,8 @@ export const handler = createIPXHandler({
       hostname: '*.unsplash.com'
     }
   ],
+  domains: [
+    'www.netlify.com'
+  ],
   basePath: '/.netlify/builders/ipx/'
 })
