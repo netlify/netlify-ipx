@@ -1356,9 +1356,9 @@ ioredis@^4.27.9:
     standard-as-callback "^2.1.0"
 
 ipx@^0.9.4:
-  version "0.9.9"
-  resolved "https://registry.yarnpkg.com/ipx/-/ipx-0.9.9.tgz#baa5a69b38234b08854ef8ae5264e8d8d5f8e267"
-  integrity sha512-H+VZZoh/2TmInXR074NvcOvwAKXKpwRvxk2sxZW0XAvBvMBOTY9z2Tv+XkooxU1q6VgNbnZIg8E6ZnO5+FKlQA==
+  version "0.9.10"
+  resolved "https://registry.yarnpkg.com/ipx/-/ipx-0.9.10.tgz#8e97d9742c165bd15f8d95046bbb6c6970f95e03"
+  integrity sha512-HymTmXe2QBiPMgsJg1EQtUYgTXfIB9ha7j8tHCQqYGDS7bTYMNWyq/fBdI3S+wc9ic+hbPlTim+uf8QgZcEykQ==
   dependencies:
     consola "^2.15.3"
     defu "^6.0.0"
@@ -1367,9 +1367,9 @@ ipx@^0.9.4:
     image-meta "^0.1.1"
     listhen "^0.2.13"
     ohmyfetch "^0.4.18"
-    pathe "^0.3.0"
+    pathe "^0.3.2"
     sharp "^0.30.7"
-    ufo "^0.8.4"
+    ufo "^0.8.5"
     xss "^1.0.13"
 
 is-arrayish@^0.2.1:
@@ -2010,10 +2010,10 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-pathe@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/pathe/-/pathe-0.3.0.tgz#fd95bc16208263fa6dc1c78c07b3907a528de6eb"
-  integrity sha512-3vUjp552BJzCw9vqKsO5sttHkbYqqsZtH0x1PNtItgqx8BXEXzoY1SYRKcL6BTyVh4lGJGLj0tM42elUDMvcYA==
+pathe@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/pathe/-/pathe-0.3.2.tgz#016345ed643027404d7a9ed8d1454ad997a1483a"
+  integrity sha512-qhnmX0TOqlCvdWWTkoM83wh5J8fZ2yhbDEc9MlsnAEtEc+JCwxUKEwmd6pkY9hRe6JR1Uecbc14VcAKX2yFSTA==
 
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   version "2.3.1"
@@ -2521,10 +2521,15 @@ ufo@^0.7.9:
   resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.7.10.tgz#278942c326e3da344b6b97637ed7f322e817261e"
   integrity sha512-YTnDRlE1cIofRqOFN8ioAbz9qenDvkgVMSn0cnxvIDjM9sfEOMKB0ybMr+otSlCXMfQ/X35haYRoI7Nua82RrA==
 
-ufo@^0.8.0, ufo@^0.8.4:
+ufo@^0.8.0:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.8.4.tgz#23e9ed82398d2116dcb378e8fba5ced8eca2ee40"
   integrity sha512-/+BmBDe8GvlB2nIflWasLLAInjYG0bC9HRnfEpNi4sw77J2AJNnEVnTDReVrehoh825+Q/evF3THXTAweyam2g==
+
+ufo@^0.8.4, ufo@^0.8.5:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/ufo/-/ufo-0.8.5.tgz#e367b4205ece9d9723f2fa54f887d43ed1bce5d0"
+  integrity sha512-e4+UtA5IRO+ha6hYklwj6r7BjiGMxS0O+UaSg9HbaTefg4kMkzj4tXzEBajRR+wkxf+golgAWKzLbytCUDMJAA==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
@@ -2537,9 +2542,9 @@ unbox-primitive@^1.0.1:
     which-boxed-primitive "^1.0.2"
 
 undici@^5.2.0:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.5.1.tgz#baaf25844a99eaa0b22e1ef8d205bffe587c8f43"
-  integrity sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw==
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.6.1.tgz#7e5c56d15032d06738358dea433f98130e2a0561"
+  integrity sha512-yYVqywdCbNb99f/w045wqmv++WExXDjY0FEvLSB7QUZZH6izxrVkF4dJn1aimcvN0+WAhv75Gg7v6VJoqmRtJQ==
 
 universalify@^2.0.0:
   version "2.0.0"
