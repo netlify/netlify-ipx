@@ -12,6 +12,7 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
   propsEncoding?: 'base64' | undefined
   bypassDomainCheck?: boolean
   remotePatterns?: RemotePattern[]
+  responseHeaders?: Array<{ name: string, value: string}>
 }
 
 export function createIPXHandler ({
@@ -20,6 +21,7 @@ export function createIPXHandler ({
   propsEncoding,
   bypassDomainCheck,
   remotePatterns,
+  responseHeaders,
   ...opts
 }: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
@@ -143,6 +145,14 @@ export function createIPXHandler ({
         message: 'Not Modified'
       }
     }
+
+    if (responseHeaders) {
+      responseHeaders.forEach((header) => {
+        const {name, value} = header
+        res.headers[name] = value
+      })
+    }
+
     return {
       statusCode: res.statusCode,
       message: res.statusMessage,

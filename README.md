@@ -89,7 +89,8 @@ remotePatterns: [
 
 - Clone repository
 - Install dependencies with `yarn install`
-- Install netlify development server with `yarn dev`
+- Build the project with `yarn build`
+- Run netlify development server with `yarn dev`. 
 - Open http://localhost:8888
 
 ## License
