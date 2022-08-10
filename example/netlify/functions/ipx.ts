@@ -10,5 +10,9 @@ export const handler = createIPXHandler({
   domains: [
     'www.netlify.com'
   ],
-  basePath: '/.netlify/builders/ipx/'
+  basePath: '/.netlify/builders/ipx/',
+  responseHeaders: {
+    'Strict-Transport-Security': 'max-age=31536000',
+    'X-Test': 'foobar'
+  }
 })
