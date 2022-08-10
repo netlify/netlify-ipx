@@ -15,7 +15,7 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
   responseHeaders?: Record<string, string>
 }
 
-export function createIPXHandler({
+export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
   propsEncoding,
@@ -100,6 +100,7 @@ export function createIPXHandler({
         }
 
         if (!domainAllowed) {
+          // eslint-disable-next-line no-console
           console.log(`URL not on allowlist. Values provided are:
             domains: ${JSON.stringify(domains)}
             remotePatterns: ${JSON.stringify(remoteURLPatterns)}
