@@ -12,6 +12,7 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
   propsEncoding?: 'base64' | undefined
   bypassDomainCheck?: boolean
   remotePatterns?: RemotePattern[]
+  responseHeaders?: Record<string, string>
 }
 
 export function createIPXHandler ({
@@ -20,6 +21,7 @@ export function createIPXHandler ({
   propsEncoding,
   bypassDomainCheck,
   remotePatterns,
+  responseHeaders,
   ...opts
 }: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
@@ -98,6 +100,7 @@ export function createIPXHandler ({
         }
 
         if (!domainAllowed) {
+          // eslint-disable-next-line no-console
           console.log(`URL not on allowlist. Values provided are:
             domains: ${JSON.stringify(domains)}
             remotePatterns: ${JSON.stringify(remoteURLPatterns)}
@@ -143,6 +146,13 @@ export function createIPXHandler ({
         message: 'Not Modified'
       }
     }
+
+    if (responseHeaders) {
+      for (const [header, value] of Object.entries(responseHeaders)) {
+        res.headers[header] = value
+      }
+    }
+
     return {
       statusCode: res.statusCode,
       message: res.statusMessage,
