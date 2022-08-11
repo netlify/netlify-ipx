@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/netlify/netlify-ipx/compare/v1.1.4...v1.2.0) (2022-08-10)
+
+
+### Features
+
+* support custom response headers ([#51](https://github.com/netlify/netlify-ipx/issues/51)) ([857eb75](https://github.com/netlify/netlify-ipx/commit/857eb7549a75531d64a55d7d3981e470cbd64002))
+
+
+### Bug Fixes
+
+* remove tarball that was accidentally merged in ([#53](https://github.com/netlify/netlify-ipx/issues/53)) ([0281ea3](https://github.com/netlify/netlify-ipx/commit/0281ea3138150d5bca37d8c02fd4dd3252e2ea39))
+
 ## [1.1.4](https://github.com/netlify/netlify-ipx/compare/v1.1.3...v1.1.4) (2022-08-08)
 
 
