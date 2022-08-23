@@ -5,7 +5,7 @@ import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
 import { loadSourceImage } from './http'
-import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
+import { decodeBase64Params, doPatternsMatchUrl, filterResponseHeaders, RemotePattern } from './utils'
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
   cacheDir?: string
   basePath?: string
@@ -148,9 +148,7 @@ export function createIPXHandler ({
     }
 
     if (responseHeaders) {
-      for (const [header, value] of Object.entries(responseHeaders)) {
-        res.headers[header] = value
-      }
+      filterResponseHeaders(responseHeaders, res.headers)
     }
 
     return {

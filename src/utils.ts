@@ -1,6 +1,13 @@
 import { ParsedURL } from 'ufo'
 
-import { makeRe } from 'micromatch'
+import micromatch from 'micromatch'
+import type { IPXHandlerOptions } from './index'
+
+const { makeRe } = micromatch
+
+type Headers = IPXHandlerOptions['responseHeaders']
+const HEADERS_BLOCKLIST = new Set(['X-Forwarded-Proto'])
+
 /**
  * Support for Gatsby-style base64-encoded URLs
  */
@@ -81,4 +88,18 @@ export function doPatternsMatchUrl (remotePattern: RemotePattern, parsedUrl: Par
   }
 
   return true
+}
+
+/**
+ * Adds headers from the original image to the the response IPX will be sending to the client.
+ *
+ * @param imageHeaders Original response headers from the image being transformed by IPX
+ * @param ipxResponseHeaders The response headers that IPX will send along with the image
+ */
+export function filterResponseHeaders (imageHeaders: Headers, ipxResponseHeaders: Headers) {
+  for (const [header, value] of Object.entries(imageHeaders)) {
+    if (!HEADERS_BLOCKLIST.has(header)) {
+      ipxResponseHeaders[header] = value
+    }
+  }
 }
