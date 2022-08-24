@@ -15,6 +15,8 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
   responseHeaders?: Record<string, string>
 }
 
+const X_FORWARDED_PROTO_VALUES = ['http', 'https']
+
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
@@ -30,7 +32,9 @@ export function createIPXHandler ({
   }
   const handler: Handler = async (event, _context) => {
     const host = event.headers.host
-    const protocol = event.headers['x-nf-connection-proto'] || 'http'
+    event.headers['x-forwarded-proto'] = X_FORWARDED_PROTO_VALUES.includes(event.headers['x-forwarded-proto'].toLowerCase()) ? event.headers['x-forwarded-proto'] : 'http'
+
+    const protocol = event.headers['x-forwarded-proto'] || 'http'
     let domains = (opts as IPXOptions).domains || []
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
