@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.3](https://github.com/netlify/netlify-ipx/compare/v1.2.2...v1.2.3) (2022-08-24)
+
+
+### Bug Fixes
+
+* x-forwarded-proto is sanitized now ([#61](https://github.com/netlify/netlify-ipx/issues/61)) ([dfa7505](https://github.com/netlify/netlify-ipx/commit/dfa7505a8d47a76fd527570dc40737a61500759b))
+
 ## [1.2.2](https://github.com/netlify/netlify-ipx/compare/v1.2.1...v1.2.2) (2022-08-16)
 
 
