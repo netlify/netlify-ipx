@@ -29,19 +29,17 @@ export function createIPXHandler ({
     basePath = `${basePath}/`
   }
   const handler: Handler = async (event, _context) => {
-    const host = event.headers.host
-    const protocol = event.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http'
     let domains = (opts as IPXOptions).domains || []
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
-    const url = event.path.replace(basePath, '')
+    const eventPath = event.path.replace(basePath, '')
 
     // eslint-disable-next-line prefer-const
-    let [modifiers = '_', ...segments] = url.split('/')
+    let [modifiers = '_', ...segments] = eventPath.split('/')
     let id = decodeURIComponent(segments.join('/'))
 
     if (propsEncoding === 'base64') {
-      const params = decodeBase64Params(url)
+      const params = decodeBase64Params(eventPath)
       if (params.error) {
         return {
           statusCode: 400,
@@ -53,9 +51,11 @@ export function createIPXHandler ({
     }
 
     const requestHeaders: Record<string, string> = {}
-    const isLocal = !id.startsWith('http')
+    const isLocal = !id.startsWith('http://') && !id.startsWith('https://')
     if (isLocal) {
-      id = `${protocol}://${host}${id.startsWith('/') ? '' : '/'}${id}`
+      const url = new URL(event.rawUrl)
+      url.pathname = id
+      id = url.toString()
       if (event.headers.cookie) {
         requestHeaders.cookie = event.headers.cookie
       }
