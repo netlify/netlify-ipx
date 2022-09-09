@@ -1856,7 +1856,7 @@ ioredis@^4.27.9:
     redis-parser "^3.0.0"
     standard-as-callback "^2.1.0"
 
-ipx@^0.9.4:
+ipx@^0.9.11:
   version "0.9.11"
   resolved "https://registry.yarnpkg.com/ipx/-/ipx-0.9.11.tgz#89bbeffc6f62df80dfd0f8fe1e68c6638d09251c"
   integrity sha512-/wsBt7hV8rvNR6O4kwgOUAhtm0F/M/mXaolXot/Bz7fdOD+W7i9OtWuoASWv1PFwwtOunhZGaoCx8BOpSdG2VQ==
