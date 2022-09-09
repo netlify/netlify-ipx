@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.5](https://github.com/netlify/netlify-ipx/compare/v1.2.4...v1.2.5) (2022-09-09)
+
+
+### Bug Fixes
+
+* **deps:** upgrade ipx ([#71](https://github.com/netlify/netlify-ipx/issues/71)) ([da4fc2e](https://github.com/netlify/netlify-ipx/commit/da4fc2ed0bba8f4dd62a12371e973527fee86c78))
+
 ## [1.2.4](https://github.com/netlify/netlify-ipx/compare/v1.2.3...v1.2.4) (2022-09-05)
 
 

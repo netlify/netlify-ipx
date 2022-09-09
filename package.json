@@ -1,6 +1,6 @@
 {
   "name": "@netlify/ipx",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "on-demand image optimization for Netlify",
   "repository": "netlify/netlify-ipx",
   "license": "MIT",
