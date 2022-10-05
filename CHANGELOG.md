@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/netlify/netlify-ipx/compare/v1.2.5...v1.3.0) (2022-10-05)
+
+
+### Features
+
+* add prefix filtering and loop detection for local images ([#83](https://github.com/netlify/netlify-ipx/issues/83)) ([f44db69](https://github.com/netlify/netlify-ipx/commit/f44db693f8bc3e4566c69204d74bb89ce5895c66))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/functions to ^1.3.0 ([#82](https://github.com/netlify/netlify-ipx/issues/82)) ([081a8d3](https://github.com/netlify/netlify-ipx/commit/081a8d3ff8cfb9f8c2a8bd43b704ecb87b5b4284))
+
 ## [1.2.5](https://github.com/netlify/netlify-ipx/compare/v1.2.4...v1.2.5) (2022-09-09)
 
 
