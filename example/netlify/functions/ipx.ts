@@ -10,6 +10,7 @@ export const handler = createIPXHandler({
   domains: [
     'www.netlify.com'
   ],
+  localPrefix: '/img/',
   basePath: '/.netlify/builders/ipx/',
   responseHeaders: {
     'Strict-Transport-Security': 'max-age=31536000',

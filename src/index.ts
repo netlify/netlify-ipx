@@ -7,11 +7,32 @@ import etag from 'etag'
 import { loadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
+  /**
+   * Path to cache directory
+   * @default os.tmpdir() /ipx-cache
+   */
   cacheDir?: string
+  /**
+   * Base path for IPX requests
+   * @default /_ipx/
+   */
   basePath?: string
   propsEncoding?: 'base64' | undefined
+  /**
+   * Bypass domain check for remote images
+   */
   bypassDomainCheck?: boolean
+  /**
+   * Restrict local image access to a specific prefix
+   */
+  localPrefix?: string
+  /**
+   * Patterns used to verify remote image URLs
+   */
   remotePatterns?: RemotePattern[]
+  /**
+   * Add custom headers to response
+   */
   responseHeaders?: Record<string, string>
 }
 
@@ -22,11 +43,15 @@ export function createIPXHandler ({
   bypassDomainCheck,
   remotePatterns,
   responseHeaders,
+  localPrefix,
   ...opts
 }: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
+  }
+  if (localPrefix && !localPrefix.startsWith('/')) {
+    localPrefix = `/${localPrefix}`
   }
   const handler: Handler = async (event, _context) => {
     let domains = (opts as IPXOptions).domains || []
@@ -55,6 +80,15 @@ export function createIPXHandler ({
     if (isLocal) {
       const url = new URL(event.rawUrl)
       url.pathname = id
+      if (localPrefix && !url.pathname.startsWith(localPrefix)) {
+        return {
+          statusCode: 400,
+          body: 'Invalid source image path',
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        }
+      }
       id = url.toString()
       if (event.headers.cookie) {
         requestHeaders.cookie = event.headers.cookie
@@ -70,7 +104,10 @@ export function createIPXHandler ({
       if (!parsedUrl.host) {
         return {
           statusCode: 403,
-          body: 'Hostname is missing: ' + id
+          body: 'Hostname is missing: ' + id,
+          headers: {
+            'Content-Type': 'text/plain'
+          }
         }
       }
 
@@ -107,7 +144,10 @@ export function createIPXHandler ({
           `)
           return {
             statusCode: 403,
-            body: 'URL not on allowlist: ' + id
+            body: 'URL not on allowlist: ' + id,
+            headers: {
+              'Content-Type': 'text/plain'
+            }
           }
         }
       }
