@@ -7,12 +7,39 @@ import etag from 'etag'
 import { loadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
+  /**
+   * Path to cache directory
+   * @default os.tmpdir() /ipx-cache
+   */
   cacheDir?: string
+  /**
+   * Base path for IPX requests
+   * @default /_ipx/
+   */
   basePath?: string
   propsEncoding?: 'base64' | undefined
+  /**
+   * Bypass domain check for remote images
+   */
   bypassDomainCheck?: boolean
+  /**
+   * Restrict local image access to a specific prefix
+   */
+  localPrefix?: string
+  /**
+   * Patterns used to verify remote image URLs
+   */
   remotePatterns?: RemotePattern[]
+  /**
+   * Add custom headers to response
+   */
   responseHeaders?: Record<string, string>
+}
+
+const SUBREQUEST_HEADER = 'x-ipx-subrequest'
+
+const plainText = {
+  'Content-Type': 'text/plain'
 }
 
 export function createIPXHandler ({
@@ -22,13 +49,26 @@ export function createIPXHandler ({
   bypassDomainCheck,
   remotePatterns,
   responseHeaders,
+  localPrefix,
   ...opts
 }: IPXHandlerOptions = {}) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
   }
+  if (localPrefix && !localPrefix.startsWith('/')) {
+    localPrefix = `/${localPrefix}`
+  }
   const handler: Handler = async (event, _context) => {
+    if (event.headers[SUBREQUEST_HEADER]) {
+      // eslint-disable-next-line no-console
+      console.error('Source image loop detected')
+      return {
+        statusCode: 400,
+        body: 'Source image loop detected',
+        headers: plainText
+      }
+    }
     let domains = (opts as IPXOptions).domains || []
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
@@ -43,18 +83,28 @@ export function createIPXHandler ({
       if (params.error) {
         return {
           statusCode: 400,
-          body: params.error
+          body: params.error,
+          headers: plainText
         }
       }
       id = params.id
       modifiers = params.modifiers
     }
 
-    const requestHeaders: Record<string, string> = {}
+    const requestHeaders: Record<string, string> = {
+      [SUBREQUEST_HEADER]: '1'
+    }
     const isLocal = !id.startsWith('http://') && !id.startsWith('https://')
     if (isLocal) {
       const url = new URL(event.rawUrl)
       url.pathname = id
+      if (localPrefix && !url.pathname.startsWith(localPrefix)) {
+        return {
+          statusCode: 400,
+          body: 'Invalid source image path',
+          headers: plainText
+        }
+      }
       id = url.toString()
       if (event.headers.cookie) {
         requestHeaders.cookie = event.headers.cookie
@@ -70,7 +120,8 @@ export function createIPXHandler ({
       if (!parsedUrl.host) {
         return {
           statusCode: 403,
-          body: 'Hostname is missing: ' + id
+          body: 'Hostname is missing: ' + id,
+          headers: plainText
         }
       }
 
@@ -107,7 +158,8 @@ export function createIPXHandler ({
           `)
           return {
             statusCode: 403,
-            body: 'URL not on allowlist: ' + id
+            body: 'URL not on allowlist: ' + id,
+            headers: plainText
           }
         }
       }

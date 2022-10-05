@@ -14,7 +14,7 @@
     "prepack": "yarn build",
     "lint": "yarn eslint --ext .ts,.js,.mjs src",
     "test": "ava",
-    "dev": "cd example && netlify dev"
+    "dev": "netlify dev"
   },
   "dependencies": {
     "@netlify/functions": "^1.3.0",
