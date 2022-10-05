@@ -36,6 +36,12 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
   responseHeaders?: Record<string, string>
 }
 
+const SUBREQUEST_HEADER = 'x-ipx-subrequest'
+
+const plainText = {
+  'Content-Type': 'text/plain'
+}
+
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
@@ -54,6 +60,15 @@ export function createIPXHandler ({
     localPrefix = `/${localPrefix}`
   }
   const handler: Handler = async (event, _context) => {
+    if (event.headers[SUBREQUEST_HEADER]) {
+      // eslint-disable-next-line no-console
+      console.error('Source image loop detected')
+      return {
+        statusCode: 400,
+        body: 'Source image loop detected',
+        headers: plainText
+      }
+    }
     let domains = (opts as IPXOptions).domains || []
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
@@ -68,14 +83,17 @@ export function createIPXHandler ({
       if (params.error) {
         return {
           statusCode: 400,
-          body: params.error
+          body: params.error,
+          headers: plainText
         }
       }
       id = params.id
       modifiers = params.modifiers
     }
 
-    const requestHeaders: Record<string, string> = {}
+    const requestHeaders: Record<string, string> = {
+      [SUBREQUEST_HEADER]: '1'
+    }
     const isLocal = !id.startsWith('http://') && !id.startsWith('https://')
     if (isLocal) {
       const url = new URL(event.rawUrl)
@@ -84,9 +102,7 @@ export function createIPXHandler ({
         return {
           statusCode: 400,
           body: 'Invalid source image path',
-          headers: {
-            'Content-Type': 'text/plain'
-          }
+          headers: plainText
         }
       }
       id = url.toString()
@@ -105,9 +121,7 @@ export function createIPXHandler ({
         return {
           statusCode: 403,
           body: 'Hostname is missing: ' + id,
-          headers: {
-            'Content-Type': 'text/plain'
-          }
+          headers: plainText
         }
       }
 
@@ -145,9 +159,7 @@ export function createIPXHandler ({
           return {
             statusCode: 403,
             body: 'URL not on allowlist: ' + id,
-            headers: {
-              'Content-Type': 'text/plain'
-            }
+            headers: plainText
           }
         }
       }
