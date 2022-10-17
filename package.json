@@ -26,7 +26,7 @@
     "murmurhash": "^2.0.0",
     "node-fetch": "^2.0.0",
     "ufo": "^0.8.0",
-    "unstorage": "^0.2.8"
+    "unstorage": "^0.6.0"
   },
   "devDependencies": {
     "@netlify/ipx": "link:.",
