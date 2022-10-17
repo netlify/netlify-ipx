@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.1](https://github.com/netlify/netlify-ipx/compare/v1.3.0...v1.3.1) (2022-10-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ufo to v0.8.6 ([#86](https://github.com/netlify/netlify-ipx/issues/86)) ([a0c7526](https://github.com/netlify/netlify-ipx/commit/a0c7526c7d6cc84fb2d45ad619b8b91de6c3377b))
+* **deps:** update dependency unstorage to ^0.6.0 ([#87](https://github.com/netlify/netlify-ipx/issues/87)) ([3d3b2e7](https://github.com/netlify/netlify-ipx/commit/3d3b2e730ba2471c3bae1e2ac71c70e86ac5f011))
+
 ## [1.3.0](https://github.com/netlify/netlify-ipx/compare/v1.2.5...v1.3.0) (2022-10-05)
 
 
