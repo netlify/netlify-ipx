@@ -36,7 +36,7 @@
     "@types/node-fetch": "^2.6.1",
     "ava": "^4.3.1",
     "esbuild-node-loader": "^0.8.0",
-    "eslint": "8.25.0",
+    "eslint": "8.26.0",
     "jiti": "^1.13.0",
     "typescript": "^4.6.2"
   },
