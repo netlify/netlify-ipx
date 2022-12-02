@@ -1,5 +1,6 @@
 import test from 'ava'
-import {decodeBase64Params} from '../src/utils'
+import {parseURL} from 'ufo'
+import {decodeBase64Params, doPatternsMatchUrl, RemotePattern} from '../src/utils'
 
 const encodeUrlAndTransforms = (url: string, transforms: string) : string => {
   const encodedUrl = Buffer.from(url).toString('base64')
@@ -126,4 +127,79 @@ test('decodeBase64Params: returns expected response if transform contains multip
   const response = decodeBase64Params(encodedUrl)
   
   t.deepEqual(response, expectedResponse)
+})
+
+test("doPatternsMatchUrl: returns false if protocol exists in remote pattern and it doesn't match", (t) => {
+  const remotePattern : RemotePattern = {
+    protocol: 'http',
+    hostname: 'fail.com'
+  }
+  const parsedUrl = parseURL('https://fake.url/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.false(matches)
+})
+
+test("doPatternsMatchUrl: returns false if port exists in remote pattern and the full host doesn't match", (t) => {
+  const remotePattern : RemotePattern = {
+    hostname: 'fail.com',
+    port: '3000'
+  }
+  const parsedUrl = parseURL('https://fake.url/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.false(matches)
+})
+
+test("doPatternsMatchUrl: returns false if port doesn't exists in remote pattern and the host doesn't match", (t) => {
+  const remotePattern : RemotePattern = {
+    hostname: 'fail.com',
+  }
+  const parsedUrl = parseURL('https://fake.url/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.false(matches)
+})
+
+test("doPatternsMatchUrl: returns false if the pathname doesn't match", (t) => {
+  const remotePattern : RemotePattern = {
+    protocol: 'https',
+    hostname: 'fake.url',
+    pathname: '/failpath'
+  }
+  const parsedUrl = parseURL('https://fake.url/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.false(matches)
+})
+
+test("doPatternsMatchUrl: returns true if remote pattern fully matches", (t) => {
+  const remotePattern : RemotePattern = {
+    protocol: 'https',
+    hostname: 'fake.url',
+    port: '3000',
+    pathname: '/images'
+  }
+  const parsedUrl = parseURL('https://fake.url:3000/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.true(matches)
+})
+
+test("doPatternsMatchUrl: returns true if remote pattern fully matches without pathname", (t) => {
+  const remotePattern : RemotePattern = {
+    protocol: 'https',
+    hostname: 'fake.url',
+    port: '3000'
+  }
+  const parsedUrl = parseURL('https://fake.url:3000/images?w=100&h=200&fm=1234', 'https://')
+
+  const matches = doPatternsMatchUrl(remotePattern, parsedUrl)
+  
+  t.true(matches)
 })
