@@ -27,7 +27,7 @@ test('decodeBase64Params: returns expected response if no transform exists in pa
   t.deepEqual(response, expectedResponse)
 })
 
-// TODO: Can id and transform ever become falsy if we're passing in a string?
+// TODO: Can id and transform ever become falsy when base64 decoding if we're passing in a string?
 // Need tests for these if so
 
 test('decodeBase64Params: returns expected response if transform contains w and h', (t) => {
@@ -72,14 +72,56 @@ test('decodeBase64Params: returns expected response if transform contains h but 
   t.deepEqual(response, expectedResponse)
 })
 
-test.skip('decodeBase64Params: returns expected response if transform contains pos', (t) => {
+test('decodeBase64Params: returns expected response if transform contains fm', (t) => {
   const expectedId = 'https://fake.url';
   const expectedResponse = {
     id: expectedId,
-    modifiers: 'h_200'
+    modifiers: 'f_10'
   }
 
-  const encodedUrl = encodeUrlAndTransforms(expectedId, 'pos=')
+  const encodedUrl = encodeUrlAndTransforms(expectedId, 'fm=10')
+  
+  const response = decodeBase64Params(encodedUrl)
+  
+  t.deepEqual(response, expectedResponse)
+})
+
+test('decodeBase64Params: returns expected response if transform contains q', (t) => {
+  const expectedId = 'https://fake.url';
+  const expectedResponse = {
+    id: expectedId,
+    modifiers: 'q_101'
+  }
+
+  const encodedUrl = encodeUrlAndTransforms(expectedId, 'q=101')
+  
+  const response = decodeBase64Params(encodedUrl)
+  
+  t.deepEqual(response, expectedResponse)
+})
+
+test('decodeBase64Params: returns expected response if transform contains pos', (t) => {
+  const expectedId = 'https://fake.url';
+  const expectedResponse = {
+    id: expectedId,
+    modifiers: 'crop_10 20'
+  }
+
+  const encodedUrl = encodeUrlAndTransforms(expectedId, 'pos=10,20')
+  
+  const response = decodeBase64Params(encodedUrl)
+  
+  t.deepEqual(response, expectedResponse)
+})
+
+test('decodeBase64Params: returns expected response if transform contains multiple valid props', (t) => {
+  const expectedId = 'https://fake.url';
+  const expectedResponse = {
+    id: expectedId,
+    modifiers: 's_100x200,f_101,crop_10 20,q_1234'
+  }
+
+  const encodedUrl = encodeUrlAndTransforms(expectedId, 'pos=10,20&w=100&h=200&fm=101&q=1234')
   
   const response = decodeBase64Params(encodedUrl)
   

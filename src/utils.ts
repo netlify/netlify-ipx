@@ -11,7 +11,6 @@ export function decodeBase64Params (path:string) {
       error: 'Bad Request'
     }
   }
-  console.log('here');
   const id = Buffer.from(url, 'base64').toString('utf8')
   // Strip the extension
   const transforms = Buffer.from(transform.split('.')[0], 'base64').toString(
