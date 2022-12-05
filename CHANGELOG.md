@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.2](https://github.com/netlify/netlify-ipx/compare/v1.3.1...v1.3.2) (2022-12-05)
+
+
+### Bug Fixes
+
+* add correct ava + typescript setup ([#96](https://github.com/netlify/netlify-ipx/issues/96)) ([910d8ad](https://github.com/netlify/netlify-ipx/commit/910d8ad8448d6feb9d493b3d827528285921b514))
+* add correct ava + typescript setup to enable tests to execute correctly ([910d8ad](https://github.com/netlify/netlify-ipx/commit/910d8ad8448d6feb9d493b3d827528285921b514))
+* **deps:** update dependency ufo to v1 ([#95](https://github.com/netlify/netlify-ipx/issues/95)) ([8fcb745](https://github.com/netlify/netlify-ipx/commit/8fcb7457a34b45b67fecde2ab73da8f8e843f090))
+
 ## [1.3.1](https://github.com/netlify/netlify-ipx/compare/v1.3.0...v1.3.1) (2022-10-17)
 
 
