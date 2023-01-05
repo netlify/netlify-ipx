@@ -4,6 +4,7 @@
   ],
   "ignorePatterns": "dist",
   "rules": {
-    "import/named": "off"
+    "import/named": "off",
+    "vue/valid-attribute-name": "off"
   }
 }
