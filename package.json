@@ -19,7 +19,7 @@
   "dependencies": {
     "@netlify/functions": "^1.4.0",
     "etag": "^1.8.1",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.0.0",
     "ipx": "^0.9.11",
     "micromatch": "^4.0.5",
     "mkdirp": "^1.0.4",
