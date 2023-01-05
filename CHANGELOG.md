@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.3](https://github.com/netlify/netlify-ipx/compare/v1.3.2...v1.3.3) (2023-01-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/functions to ^1.4.0 ([#107](https://github.com/netlify/netlify-ipx/issues/107)) ([1a2009b](https://github.com/netlify/netlify-ipx/commit/1a2009bbd33be34970580f4959242b58aebf2c01))
+* **deps:** update dependency fs-extra to v11 ([#102](https://github.com/netlify/netlify-ipx/issues/102)) ([36326cf](https://github.com/netlify/netlify-ipx/commit/36326cf4f8c5f4c1cb4a47701f6adb60af12978d))
+* **deps:** update dependency unstorage to v1 ([#105](https://github.com/netlify/netlify-ipx/issues/105)) ([752c47c](https://github.com/netlify/netlify-ipx/commit/752c47cb2b48752ff9eb61b7034f3863e1eac0cb))
+* remove quotes from etag ([#103](https://github.com/netlify/netlify-ipx/issues/103)) ([e4101c0](https://github.com/netlify/netlify-ipx/commit/e4101c01f5582543f7fe3b68f336f112bca7fe04))
+
 ## [1.3.2](https://github.com/netlify/netlify-ipx/compare/v1.3.1...v1.3.2) (2022-12-05)
 
 
