@@ -189,7 +189,7 @@ export function createIPXHandler ({
     const body =
       typeof res.body === 'string' ? res.body : res.body.toString('base64')
 
-    res.headers.etag = responseEtag || etag(body)
+    res.headers.etag = responseEtag || JSON.parse(etag(body))
     delete res.headers['Last-Modified']
 
     if (requestEtag && requestEtag === res.headers.etag) {

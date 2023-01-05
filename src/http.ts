@@ -90,7 +90,8 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
   // either an etag or a last-modified date for the source image to do so.
   let responseEtag
   if (metadata.etag || metadata.lastModified) {
-    responseEtag = etag(`${cacheKey}${metadata.etag || metadata.lastModified}${modifiers}`)
+    // etag returns a quoted string for some reason
+    responseEtag = JSON.parse(etag(`${cacheKey}${metadata.etag || metadata.lastModified}${modifiers}`))
     if (requestEtag && (requestEtag === responseEtag)) {
       return {
         response: {
