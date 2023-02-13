@@ -326,10 +326,15 @@ acorn-walk@^8.1.1, acorn-walk@^8.2.0:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
   integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
 
-acorn@^8.4.1, acorn@^8.8.0, acorn@^8.8.1:
+acorn@^8.4.1, acorn@^8.8.0:
   version "8.8.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.1.tgz#0a3f9cbecc4ec3bea6f0a80b66ae8dd2da250b73"
   integrity sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==
+
+acorn@^8.8.1:
+  version "8.8.2"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.2.tgz#1b2f25db02af965399b9776b0c2c391276d37c4a"
+  integrity sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==
 
 aggregate-error@^4.0.0:
   version "4.0.1"
@@ -455,9 +460,9 @@ asynckit@^0.4.0:
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
 ava@^5.0.0:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/ava/-/ava-5.1.1.tgz#41b1e1f60965b0701aca3a48bc63cb4c94f7ee6d"
-  integrity sha512-od1CWgWVIKZSdEc1dhQWhbsd6KBs0EYjek7eqZNGPvy+NyC9Q1bXixcadlgOXwDG9aM0zLMQZwRXfe9gMb1LQQ==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ava/-/ava-5.2.0.tgz#0fae0a987872df1859391a658f2374f5f16d6d29"
+  integrity sha512-W8yxFXJr/P68JP55eMpQIa6AiXhCX3VeuajM8nolyWNExcMDD6rnIWKTjw0B/+GkFHBIaN6Jd0LtcMThcoqVfg==
   dependencies:
     acorn "^8.8.1"
     acorn-walk "^8.2.0"
@@ -659,9 +664,9 @@ ci-info@^3.4.0:
   integrity sha512-2CpRNYmImPx+RXKLq6jko/L07phmS9I02TyqkcNU20GCF/GgaWvc58hPtjxDX8lPpkdwc9sNh72V9k00S7ezog==
 
 ci-info@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.7.1.tgz#708a6cdae38915d597afdf3b145f2f8e1ff55f3f"
-  integrity sha512-4jYS4MOAaCIStSRwiuxc4B8MYhIe676yO1sYGzARnjXkWpmzZMMYxY6zu8WYWDhSuth5zhrQ1rhNSibyyvv4/w==
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.8.0.tgz#81408265a5380c929f0bc665d62256628ce9ef91"
+  integrity sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==
 
 ci-parallel-vars@^1.0.1:
   version "1.0.1"
@@ -1994,9 +1999,9 @@ ipx@^0.9.11:
     xss "^1.0.14"
 
 irregular-plurals@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/irregular-plurals/-/irregular-plurals-3.3.0.tgz#67d0715d4361a60d9fd9ee80af3881c631a31ee2"
-  integrity sha512-MVBLKUTangM3EfRPFROhmWQQKRDsrgI83J8GS3jXy+OwYqiR2/aoWndYQ5416jLE3uaGgLH7ncme3X9y09gZ3g==
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/irregular-plurals/-/irregular-plurals-3.4.0.tgz#4be22a18af7c428e6480163d0de555e343b876db"
+  integrity sha512-YXxECO/W6N9aMBVKMKKZ8TXESgq7EFrp3emCGGUcrYY1cgJIeZjoB75MTu8qi+NAKntS9NwPU8VdcQ3r6E6aWQ==
 
 is-arrayish@^0.2.1:
   version "0.2.1"
@@ -2319,9 +2324,9 @@ locate-path@^6.0.0:
     p-locate "^5.0.0"
 
 locate-path@^7.1.0:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-7.1.1.tgz#8e1e5a75c7343770cef02ff93c4bf1f0aa666374"
-  integrity sha512-vJXaRMJgRVD3+cUZs3Mncj2mxpt5mP0EmNOsxRSZRMlbqjvxzDEOIUWXGmavo0ZC9+tNZCBLQ66reA11nbpHZg==
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-7.2.0.tgz#69cb1779bd90b35ab1e771e1f2f89a202c2a8a8a"
+  integrity sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==
   dependencies:
     p-locate "^6.0.0"
 
