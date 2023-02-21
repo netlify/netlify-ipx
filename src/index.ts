@@ -223,5 +223,5 @@ export function createIPXHandler ({
     }
   }
 
-  return builder(handler)
+  return handler
 }

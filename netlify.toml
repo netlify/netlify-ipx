@@ -8,5 +8,5 @@ external_node_modules = ["fsevents"]
 
 [[redirects]]
 from = "/_gatsby/image/*"
-to = "/.netlify/builders/gatsby"
+to = "/.netlify/functions/gatsby"
 status = 200
