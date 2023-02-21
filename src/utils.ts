@@ -23,6 +23,10 @@ export function decodeBase64Params (path:string) {
   }
   const params = new URLSearchParams(transforms)
 
+  return { id, modifiers: getNormalizedModifers(params) }
+}
+
+export function getNormalizedModifers(params: URLSearchParams): string {
   //  [ipx modifier name, gatsby modifier name]
   const props = [
     ['f', 'fm'],
@@ -49,7 +53,7 @@ export function decodeBase64Params (path:string) {
     }
   }
 
-  return { id, modifiers: modifiers.join(',') }
+  return modifiers.join(',')
 }
 
 export interface RemotePattern {
