@@ -1,7 +1,14 @@
 import { join } from 'path'
-import { createWriteStream, ensureDir, existsSync, unlink } from 'fs-extra'
+import {
+  createWriteStream,
+  ensureDir,
+  existsSync,
+  unlink,
+  stat,
+  pathExists
+} from 'fs-extra'
 import fetch, { Headers } from 'node-fetch'
-import { createStorage } from 'unstorage'
+import { createStorage, Storage } from 'unstorage'
 import fsDriver from 'unstorage/drivers/fs'
 import murmurhash from 'murmurhash'
 import etag from 'etag'
@@ -19,6 +26,7 @@ export interface SourceImageResult {
   response?: HandlerResponse
   cacheKey?: string;
   responseEtag?: string;
+  finalize: () => Promise<void>
 }
 
 export interface SourceImageOptions {
@@ -28,6 +36,113 @@ export interface SourceImageOptions {
   modifiers: string
   isLocal?: boolean
   requestEtag?: string
+}
+
+interface UsageTrackingItem {
+  runningCount: number;
+  cacheKey: string;
+    lastAccess: number;
+    inputCacheFile: string
+    size: number
+}
+
+type UsageTracking = Record<
+  string,
+  UsageTrackingItem
+>;
+
+const USAGE_TRACKING_KEY = 'usage-tracking'
+
+async function getTracking (metadataStore: Storage): Promise<UsageTracking> {
+  return ((await metadataStore.getItem(USAGE_TRACKING_KEY)) as
+      | UsageTracking
+      | undefined) ?? {}
+}
+
+async function markUsageStart (
+  metadataStore: Storage,
+  cacheKey: string,
+  inputCacheFile: string
+): Promise<void> {
+  const tracking = await getTracking(metadataStore)
+
+  let usageTrackingItem = tracking[cacheKey]
+  if (!usageTrackingItem) {
+    tracking[cacheKey] = usageTrackingItem = {
+      runningCount: 0,
+      lastAccess: 0,
+      size: 0,
+      cacheKey,
+      inputCacheFile
+    }
+  }
+
+  usageTrackingItem.runningCount++
+  usageTrackingItem.lastAccess = Date.now()
+
+  await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
+}
+
+async function markUsageComplete (
+  metadataStore: Storage,
+  cacheKey: string
+
+) {
+  const tracking = await getTracking(metadataStore)
+
+  const usageTrackingItem = tracking[cacheKey]
+  if (usageTrackingItem) {
+    usageTrackingItem.runningCount--
+
+    if (await pathExists(usageTrackingItem.inputCacheFile)) {
+      const { size } = await stat(usageTrackingItem.inputCacheFile)
+      usageTrackingItem.size = size
+    } else {
+      // If the file doesn't exist, we can't track it
+      delete tracking[cacheKey]
+    }
+
+    await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
+  }
+}
+
+const CACHE_PRUNING_THRESHOLD = 50 * 1024 * 1024
+
+async function maybePruneCache (metadataStore: Storage) {
+  const tracking = await getTracking(metadataStore)
+
+  let totalSize = 0
+  let totalSizeAvailableToPrune = 0
+
+  const prunableItems: Array<UsageTrackingItem> = []
+
+  for (const trackingItem of Object.values(tracking)) {
+    totalSize += trackingItem.size
+    if (trackingItem.runningCount === 0) {
+      totalSizeAvailableToPrune += trackingItem.size
+      prunableItems.push(trackingItem)
+    }
+  }
+
+  const prunableItemsSortedByAccessTime = prunableItems.sort((a, b) => a.lastAccess - b.lastAccess)
+
+  while (
+    totalSize >= CACHE_PRUNING_THRESHOLD &&
+    totalSizeAvailableToPrune > 0 &&
+    prunableItemsSortedByAccessTime.length > 0
+  ) {
+    const itemToPrune = prunableItemsSortedByAccessTime.shift()
+
+    await metadataStore.removeItem(`source:${itemToPrune.cacheKey}`)
+    await unlink(itemToPrune.inputCacheFile)
+
+    delete tracking[itemToPrune.cacheKey]
+
+    totalSize -= itemToPrune.size
+    totalSizeAvailableToPrune -= itemToPrune.size
+  }
+
+  await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
 }
 
 export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, isLocal, requestHeaders = {} }: SourceImageOptions): Promise<SourceImageResult> {
@@ -43,84 +158,100 @@ export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, 
   const cacheKey = String(murmurhash(url))
   const inputCacheFile = join(fileCache, cacheKey)
 
-  const headers = new Headers(requestHeaders)
-  let sourceMetadata: SourceMetadata | undefined
-  if (existsSync(inputCacheFile)) {
-    sourceMetadata = (await metadataStore.getItem(`source:${cacheKey}`)) as
+  await markUsageStart(metadataStore, cacheKey, inputCacheFile)
+  await maybePruneCache(metadataStore)
+
+  function finalize () {
+    return markUsageComplete(metadataStore, cacheKey)
+  }
+
+  try {
+    const headers = new Headers(requestHeaders)
+    let sourceMetadata: SourceMetadata | undefined
+    if (existsSync(inputCacheFile)) {
+      sourceMetadata = (await metadataStore.getItem(`source:${cacheKey}`)) as
         | SourceMetadata
         | undefined
-    if (sourceMetadata) {
-      //  Ideally use etag
-      if (sourceMetadata.etag) {
-        headers.set('If-None-Match', sourceMetadata.etag)
-      } else if (sourceMetadata.lastModified) {
-        headers.set('If-Modified-Since', sourceMetadata.lastModified)
-      } else {
-        // If we have neither, the cachefile is useless
-        await unlink(inputCacheFile)
+      if (sourceMetadata) {
+        //  Ideally use etag
+        if (sourceMetadata.etag) {
+          headers.set('If-None-Match', sourceMetadata.etag)
+        } else if (sourceMetadata.lastModified) {
+          headers.set('If-Modified-Since', sourceMetadata.lastModified)
+        } else {
+          // If we have neither, the cachefile is useless
+          await unlink(inputCacheFile)
+        }
       }
     }
-  }
 
-  let response
-  try {
-    response = await fetch(url, {
-      headers
-    })
-  } catch (e) {
-    return {
-      response: {
-        statusCode: GATEWAY_ERROR,
-        headers: {
-          'Content-Type': 'text/plain'
-        },
-        body: `Error loading source image: ${e.message} ${url}`
-      }
-    }
-  }
-
-  const sourceEtag = response.headers.get('etag')
-  const sourceLastModified = response.headers.get('last-modified')
-  const metadata = {
-    etag: sourceEtag || sourceMetadata?.etag,
-    lastModified: sourceLastModified || sourceMetadata?.lastModified
-  }
-  await metadataStore.setItem(`source:${cacheKey}`, metadata)
-  // We try to contruct an etag without downloading or processing the image, but we need
-  // either an etag or a last-modified date for the source image to do so.
-  let responseEtag
-  if (metadata.etag || metadata.lastModified) {
-    // etag returns a quoted string for some reason
-    responseEtag = JSON.parse(etag(`${cacheKey}${metadata.etag || metadata.lastModified}${modifiers}`))
-    if (requestEtag && (requestEtag === responseEtag)) {
+    let response
+    try {
+      response = await fetch(url, {
+        headers
+      })
+    } catch (e) {
       return {
         response: {
-          statusCode: NOT_MODIFIED
+          statusCode: GATEWAY_ERROR,
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: `Error loading source image: ${e.message} ${url}`
+        },
+        finalize
+      }
+    }
+
+    const sourceEtag = response.headers.get('etag')
+    const sourceLastModified = response.headers.get('last-modified')
+    const metadata = {
+      etag: sourceEtag || sourceMetadata?.etag,
+      lastModified: sourceLastModified || sourceMetadata?.lastModified
+    }
+    await metadataStore.setItem(`source:${cacheKey}`, metadata)
+    // We try to contruct an etag without downloading or processing the image, but we need
+    // either an etag or a last-modified date for the source image to do so.
+    let responseEtag
+    if (metadata.etag || metadata.lastModified) {
+      // etag returns a quoted string for some reason
+      responseEtag = JSON.parse(etag(`${cacheKey}${metadata.etag || metadata.lastModified}${modifiers}`))
+      if (requestEtag && (requestEtag === responseEtag)) {
+        return {
+          response: {
+            statusCode: NOT_MODIFIED
+          },
+          finalize
         }
       }
     }
-  }
 
-  if (response.status === NOT_MODIFIED) {
-    return { cacheKey, responseEtag }
-  }
-  if (!response.ok) {
-    return {
-      response: {
-        statusCode: isLocal ? response.status : GATEWAY_ERROR,
-        body: `Source image server responsed with ${response.status} ${response.statusText}`,
-        headers: {
-          'Content-Type': 'text/plain'
-        }
+    if (response.status === NOT_MODIFIED) {
+      return { cacheKey, responseEtag, finalize }
+    }
+    if (!response.ok) {
+      return {
+        response: {
+          statusCode: isLocal ? response.status : GATEWAY_ERROR,
+          body: `Source image server responsed with ${response.status} ${response.statusText}`,
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        },
+        finalize
       }
     }
-  }
 
-  const outfile = createWriteStream(inputCacheFile)
-  await new Promise((resolve, reject) => {
-    outfile.on('finish', resolve)
-    outfile.on('error', reject)
-    response.body.pipe(outfile)
-  })
-  return { cacheKey, responseEtag }
+    const outfile = createWriteStream(inputCacheFile)
+    await new Promise((resolve, reject) => {
+      outfile.on('finish', resolve)
+      outfile.on('error', reject)
+      response.body.pipe(outfile)
+    })
+
+    return { cacheKey, responseEtag, finalize }
+  } catch (e) {
+    await finalize()
+    throw e
+  }
 }
