@@ -13,6 +13,7 @@ import fsDriver from 'unstorage/drivers/fs'
 import murmurhash from 'murmurhash'
 import etag from 'etag'
 import type { HandlerResponse } from '@netlify/functions'
+import { Lock } from './utils'
 
 interface SourceMetadata {
   etag?: string;
@@ -41,9 +42,9 @@ export interface SourceImageOptions {
 interface UsageTrackingItem {
   runningCount: number;
   cacheKey: string;
-    lastAccess: number;
-    inputCacheFile: string
-    size: number
+  lastAccess: number;
+  inputCacheFile: string
+  size: number
 }
 
 type UsageTracking = Record<
@@ -52,6 +53,7 @@ type UsageTracking = Record<
 >;
 
 const USAGE_TRACKING_KEY = 'usage-tracking'
+const trackingLock = new Lock()
 
 async function getTracking (metadataStore: Storage): Promise<UsageTracking> {
   return ((await metadataStore.getItem(USAGE_TRACKING_KEY)) as
@@ -64,23 +66,28 @@ async function markUsageStart (
   cacheKey: string,
   inputCacheFile: string
 ): Promise<void> {
-  const tracking = await getTracking(metadataStore)
+  await trackingLock.acquire()
+  try {
+    const tracking = await getTracking(metadataStore)
 
-  let usageTrackingItem = tracking[cacheKey]
-  if (!usageTrackingItem) {
-    tracking[cacheKey] = usageTrackingItem = {
-      runningCount: 0,
-      lastAccess: 0,
-      size: 0,
-      cacheKey,
-      inputCacheFile
+    let usageTrackingItem = tracking[cacheKey]
+    if (!usageTrackingItem) {
+      tracking[cacheKey] = usageTrackingItem = {
+        runningCount: 0,
+        lastAccess: 0,
+        size: 0,
+        cacheKey,
+        inputCacheFile
+      }
     }
+
+    usageTrackingItem.runningCount++
+    usageTrackingItem.lastAccess = Date.now()
+
+    await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
+  } finally {
+    trackingLock.release()
   }
-
-  usageTrackingItem.runningCount++
-  usageTrackingItem.lastAccess = Date.now()
-
-  await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
 }
 
 async function markUsageComplete (
@@ -88,61 +95,73 @@ async function markUsageComplete (
   cacheKey: string
 
 ) {
-  const tracking = await getTracking(metadataStore)
+  await trackingLock.acquire()
+  try {
+    const tracking = await getTracking(metadataStore)
 
-  const usageTrackingItem = tracking[cacheKey]
-  if (usageTrackingItem) {
-    usageTrackingItem.runningCount--
+    const usageTrackingItem = tracking[cacheKey]
+    if (usageTrackingItem) {
+      usageTrackingItem.runningCount--
 
-    if (await pathExists(usageTrackingItem.inputCacheFile)) {
-      const { size } = await stat(usageTrackingItem.inputCacheFile)
-      usageTrackingItem.size = size
-    } else {
-      // If the file doesn't exist, we can't track it
-      delete tracking[cacheKey]
+      if (await pathExists(usageTrackingItem.inputCacheFile)) {
+        const { size } = await stat(usageTrackingItem.inputCacheFile)
+        usageTrackingItem.size = size
+      } else {
+        // If the file doesn't exist, we can't track it
+        delete tracking[cacheKey]
+      }
+
+      await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
     }
-
-    await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
+  } finally {
+    trackingLock.release()
   }
 }
 
-const CACHE_PRUNING_THRESHOLD = 50 * 1024 * 1024
+export const CACHE_PRUNING_THRESHOLD = 50 * 1024 * 1024
 
 async function maybePruneCache (metadataStore: Storage) {
-  const tracking = await getTracking(metadataStore)
+  await trackingLock.acquire()
+  try {
+    const tracking = await getTracking(metadataStore)
 
-  let totalSize = 0
-  let totalSizeAvailableToPrune = 0
+    let totalSize = 0
+    let totalSizeAvailableToPrune = 0
 
-  const prunableItems: Array<UsageTrackingItem> = []
+    const prunableItems: Array<UsageTrackingItem> = []
 
-  for (const trackingItem of Object.values(tracking)) {
-    totalSize += trackingItem.size
-    if (trackingItem.runningCount === 0) {
-      totalSizeAvailableToPrune += trackingItem.size
-      prunableItems.push(trackingItem)
+    for (const trackingItem of Object.values(tracking)) {
+      totalSize += trackingItem.size
+      if (trackingItem.runningCount === 0) {
+        totalSizeAvailableToPrune += trackingItem.size
+        prunableItems.push(trackingItem)
+      }
     }
+
+    const prunableItemsSortedByAccessTime = prunableItems.sort(
+      (a, b) => a.lastAccess - b.lastAccess
+    )
+
+    while (
+      totalSize >= CACHE_PRUNING_THRESHOLD &&
+      totalSizeAvailableToPrune > 0 &&
+      prunableItemsSortedByAccessTime.length > 0
+    ) {
+      const itemToPrune = prunableItemsSortedByAccessTime.shift()
+
+      await metadataStore.removeItem(`source:${itemToPrune.cacheKey}`)
+      await unlink(itemToPrune.inputCacheFile)
+
+      delete tracking[itemToPrune.cacheKey]
+
+      totalSize -= itemToPrune.size
+      totalSizeAvailableToPrune -= itemToPrune.size
+    }
+
+    await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
+  } finally {
+    trackingLock.release()
   }
-
-  const prunableItemsSortedByAccessTime = prunableItems.sort((a, b) => a.lastAccess - b.lastAccess)
-
-  while (
-    totalSize >= CACHE_PRUNING_THRESHOLD &&
-    totalSizeAvailableToPrune > 0 &&
-    prunableItemsSortedByAccessTime.length > 0
-  ) {
-    const itemToPrune = prunableItemsSortedByAccessTime.shift()
-
-    await metadataStore.removeItem(`source:${itemToPrune.cacheKey}`)
-    await unlink(itemToPrune.inputCacheFile)
-
-    delete tracking[itemToPrune.cacheKey]
-
-    totalSize -= itemToPrune.size
-    totalSizeAvailableToPrune -= itemToPrune.size
-  }
-
-  await metadataStore.setItem(USAGE_TRACKING_KEY, tracking)
 }
 
 export async function loadSourceImage ({ cacheDir, url, requestEtag, modifiers, isLocal, requestHeaders = {} }: SourceImageOptions): Promise<SourceImageResult> {
