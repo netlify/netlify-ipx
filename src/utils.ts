@@ -85,34 +85,34 @@ export function doPatternsMatchUrl (remotePattern: RemotePattern, parsedUrl: Par
 }
 
 export class Lock {
-  private locked = false
-  private ee = new EventEmitter()
+  #locked = false
+  #ee = new EventEmitter()
 
   acquire (): Promise<void> {
     return new Promise((resolve) => {
       // If nobody has the lock, take it and resolve immediately
-      if (!this.locked) {
+      if (!this.#locked) {
         // Safe because JS doesn't interrupt you on synchronous operations,
         // so no need for compare-and-swap or anything like that.
-        this.locked = true
+        this.#locked = true
         return resolve()
       }
 
       // Otherwise, wait until somebody releases the lock and try again
       const tryAcquire = () => {
-        if (!this.locked) {
-          this.locked = true
-          this.ee.removeListener('release', tryAcquire)
+        if (!this.#locked) {
+          this.#locked = true
+          this.#ee.removeListener('release', tryAcquire)
           return resolve()
         }
       }
-      this.ee.on('release', tryAcquire)
+      this.#ee.on('release', tryAcquire)
     })
   }
 
   release (): void {
     // Release the lock immediately
-    this.locked = false
-    setImmediate(() => this.ee.emit('release'))
+    this.#locked = false
+    setImmediate(() => this.#ee.emit('release'))
   }
 }
