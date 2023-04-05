@@ -7,7 +7,7 @@ import { readFile, statSync, emptyDir, readdirSync } from 'fs-extra'
 import { createIPXHandler } from '../src/index'
 import { CACHE_PRUNING_THRESHOLD } from '../src/http'
 
-test('source image cache prunning', async (t) => {
+test('source image cache pruning', async (t) => {
   const filePath = join(__dirname, '..', 'example', 'public', 'img', 'test.jpg')
   const port = 8125
 

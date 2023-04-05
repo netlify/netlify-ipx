@@ -56,9 +56,8 @@ const USAGE_TRACKING_KEY = 'usage-tracking'
 const trackingLock = new Lock()
 
 async function getTracking (metadataStore: Storage): Promise<UsageTracking> {
-  return ((await metadataStore.getItem(USAGE_TRACKING_KEY)) as
-      | UsageTracking
-      | undefined) ?? {}
+  return ((await metadataStore.getItem(USAGE_TRACKING_KEY)) ??
+    {}) as UsageTracking
 }
 
 async function markUsageStart (
