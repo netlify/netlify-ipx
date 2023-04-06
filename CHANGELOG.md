@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/netlify/netlify-ipx/compare/v1.3.3...v1.4.0) (2023-04-06)
+
+
+### Features
+
+* add pruning mechanism for source images cache ([#136](https://github.com/netlify/netlify-ipx/issues/136)) ([d7b7424](https://github.com/netlify/netlify-ipx/commit/d7b74247640c057f0432d6ea39f4137abb506578))
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-fetch to v2.6.8 ([#112](https://github.com/netlify/netlify-ipx/issues/112)) ([0ec330d](https://github.com/netlify/netlify-ipx/commit/0ec330daeb5c802e825277c879ffb106ee9b9a8a))
+* **deps:** update dependency node-fetch to v2.6.9 ([#115](https://github.com/netlify/netlify-ipx/issues/115)) ([3af6712](https://github.com/netlify/netlify-ipx/commit/3af671223fa9303548528a7cb2f5a8806d1b0f7f))
+* **deps:** update dependency ufo to v1.1.1 ([#127](https://github.com/netlify/netlify-ipx/issues/127)) ([118bd63](https://github.com/netlify/netlify-ipx/commit/118bd630502f21415ff658addc0e3b7262a874ab))
+* **deps:** update dependency unstorage to v1.1.4 ([#119](https://github.com/netlify/netlify-ipx/issues/119)) ([f288273](https://github.com/netlify/netlify-ipx/commit/f288273a2bbd6899d008fe5c18d55d228be858f4))
+* **deps:** update dependency unstorage to v1.1.5 ([#121](https://github.com/netlify/netlify-ipx/issues/121)) ([b535f28](https://github.com/netlify/netlify-ipx/commit/b535f28d79416fc5cef7c03537b4137a77d39765))
+* **deps:** update dependency unstorage to v1.4.1 ([#133](https://github.com/netlify/netlify-ipx/issues/133)) ([83922e1](https://github.com/netlify/netlify-ipx/commit/83922e1ca5ddaab6f3d256416b23d334fb1d176a))
+
 ## [1.3.3](https://github.com/netlify/netlify-ipx/compare/v1.3.2...v1.3.3) (2023-01-05)
 
 
