@@ -1,6 +1,6 @@
 # Netlify Optimized Images
 
-> On Demand image optimazation for Netlify using [ipx](https://github.com/unjs/ipx).
+> On Demand image optimization for Netlify using [ipx](https://github.com/unjs/ipx).
 
 😺 Online demo: https://netlify-ipx.netlify.app
 
