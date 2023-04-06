@@ -165,7 +165,7 @@ export function createIPXHandler ({
       }
     }
 
-    const { response, cacheKey, responseEtag } = await loadSourceImage({
+    const { response, cacheKey, responseEtag, finalize } = await loadSourceImage({
       cacheDir,
       url: id,
       requestEtag,
@@ -174,43 +174,47 @@ export function createIPXHandler ({
       requestHeaders
     })
 
-    if (response) {
-      return response
-    }
+    try {
+      if (response) {
+        return response
+      }
 
-    const res = await handleRequest(
-      {
-        url: `/${modifiers}/${cacheKey}`,
-        headers: event.headers
-      },
-      ipx
-    )
+      const res = await handleRequest(
+        {
+          url: `/${modifiers}/${cacheKey}`,
+          headers: event.headers
+        },
+        ipx
+      )
 
-    const body =
-      typeof res.body === 'string' ? res.body : res.body.toString('base64')
+      const body =
+        typeof res.body === 'string' ? res.body : res.body.toString('base64')
 
-    res.headers.etag = responseEtag || JSON.parse(etag(body))
-    delete res.headers['Last-Modified']
+      res.headers.etag = responseEtag || JSON.parse(etag(body))
+      delete res.headers['Last-Modified']
 
-    if (requestEtag && requestEtag === res.headers.etag) {
+      if (requestEtag && requestEtag === res.headers.etag) {
+        return {
+          statusCode: 304,
+          message: 'Not Modified'
+        }
+      }
+
+      if (responseHeaders) {
+        for (const [header, value] of Object.entries(responseHeaders)) {
+          res.headers[header] = value
+        }
+      }
+
       return {
-        statusCode: 304,
-        message: 'Not Modified'
+        statusCode: res.statusCode,
+        message: res.statusMessage,
+        headers: res.headers,
+        isBase64Encoded: typeof res.body !== 'string',
+        body
       }
-    }
-
-    if (responseHeaders) {
-      for (const [header, value] of Object.entries(responseHeaders)) {
-        res.headers[header] = value
-      }
-    }
-
-    return {
-      statusCode: res.statusCode,
-      message: res.statusMessage,
-      headers: res.headers,
-      isBase64Encoded: typeof res.body !== 'string',
-      body
+    } finally {
+      await finalize()
     }
   }
 
