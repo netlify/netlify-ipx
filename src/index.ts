@@ -91,6 +91,9 @@ export function createIPXHandler ({
       modifiers = params.modifiers
     }
 
+    // support animated webp and gif
+    modifiers += ',animated'
+
     const requestHeaders: Record<string, string> = {
       [SUBREQUEST_HEADER]: '1'
     }
