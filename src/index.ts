@@ -42,6 +42,9 @@ const plainText = {
   'Content-Type': 'text/plain'
 }
 
+// addresses https://github.com/lovell/sharp/issues/1851
+process.env.VIPS_DISC_THRESHOLD = '600m'
+
 export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
