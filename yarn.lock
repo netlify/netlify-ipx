@@ -831,10 +831,10 @@ convert-to-spaces@^2.0.1:
   resolved "https://registry.yarnpkg.com/convert-to-spaces/-/convert-to-spaces-2.0.1.tgz#61a6c98f8aa626c16b296b862a91412a33bceb6b"
   integrity sha512-rcQ1bsQO9799wq24uE5AM2tAILy4gXGIK/njFWcVQkGNZ96edlpY+A7bjwvzjYvLDyzmG1MmMLZhpcsb+klNMQ==
 
-cookie-es@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/cookie-es/-/cookie-es-0.5.0.tgz#a6ad89923e68c542fc9e760b07aefa5ab020d719"
-  integrity sha512-RyZrFi6PNpBFbIaQjXDlFIhFVqV42QeKSZX1yQIl6ihImq6vcHNGMtqQ/QzY3RMPuYSkvsRwtnt5M9NeYxKt0g==
+cookie-es@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cookie-es/-/cookie-es-1.0.0.tgz#4759684af168dfc54365b2c2dda0a8d7ee1e4865"
+  integrity sha512-mWYvfOLrfEc996hlKcdABeIiPHUPC6DM2QYZdGGOvhOTbA3tjm2eBwqlJpoFdjC89NI4Qt6h0Pu06Mp+1Pj5OQ==
 
 create-require@^1.1.0:
   version "1.1.1"
@@ -1852,17 +1852,17 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-h3@^1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/h3/-/h3-1.6.4.tgz#0575995014f6a1a63ff3bbfe3eaf58da0972b9e8"
-  integrity sha512-uoDNeaoeDRwWBtwwi4siZ6l5sBmDJpnpcBssuAbvsaPBonl8vP7Ym4tFPe+tAvGM0GbUoC24wYcloCG+J9hqmA==
+h3@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/h3/-/h3-1.6.6.tgz#f7da8517ae3bf906716975e38f2d3c24ab79a239"
+  integrity sha512-DWu2s11OuuO9suEkX99dXaJoxd1RgPXiM4iDmLdrhGV63GLoav13f3Kdd5/Rw7xNKzhzn2+F2dleQjG66SnMPQ==
   dependencies:
-    cookie-es "^0.5.0"
+    cookie-es "^1.0.0"
     defu "^6.1.2"
     destr "^1.2.2"
-    iron-webcrypto "^0.6.0"
+    iron-webcrypto "^0.7.0"
     radix3 "^1.0.1"
-    ufo "^1.1.1"
+    ufo "^1.1.2"
     uncrypto "^0.1.2"
 
 has-bigints@^1.0.1, has-bigints@^1.0.2:
@@ -2033,10 +2033,10 @@ ipx@^1.0.0:
     ufo "^1.1.2"
     xss "^1.0.14"
 
-iron-webcrypto@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/iron-webcrypto/-/iron-webcrypto-0.6.0.tgz#3e597930b41363fc81a6ec415d25eb5000092144"
-  integrity sha512-WYgEQttulX/+JTv1BTJFYY3OsAb+ZnCuA53IjppZMyiRsVdGeEuZ/k4fJrg77Rzn0pp9/PgWtXUF+5HndDA5SQ==
+iron-webcrypto@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/iron-webcrypto/-/iron-webcrypto-0.7.0.tgz#781262e56127404c4e49e5e150a49408d3dec30f"
+  integrity sha512-WkX32iTcwd79ZsWRPP5wq1Jq6XXfPwO783ZiUBY8uMw4/AByx5WvBmxvYGnpVt6AOVJ0F41Qo420r8lIneT9Wg==
 
 irregular-plurals@^3.3.0:
   version "3.4.0"
@@ -2379,10 +2379,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lru-cache@^9.0.3:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-9.0.3.tgz#8a04f282df5320227bb7215c55df2660d3e4e25b"
-  integrity sha512-cyjNRew29d4kbgnz1sjDqxg7qg8NW4s+HQzCGjeon7DV5T2yDije16W9HaUFV1dhVEMh+SjrOcK0TomBmf3Egg==
+lru-cache@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-9.1.1.tgz#c58a93de58630b688de39ad04ef02ef26f1902f1"
+  integrity sha512-65/Jky17UwSb0BuB9V+MyDpsOtXKmYwzhyl+cOa9XUiI4uV2Ouy/2voFP3+al0BjZbJgMBD8FojMpAf+Z+qn4A==
 
 make-error@^1.1.1:
   version "1.3.6"
@@ -2552,7 +2552,12 @@ node-domexception@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
 
-node-fetch-native@^1.0.2, node-fetch-native@^1.1.0:
+node-fetch-native@^1.0.2, node-fetch-native@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/node-fetch-native/-/node-fetch-native-1.1.1.tgz#b8977dd7fe6c5599e417301ed3987bca787d3d6f"
+  integrity sha512-9VvspTSUp2Sxbl+9vbZTlFGq9lHwE8GDVVekxx6YsNd1YH59sb3Ba8v3Y3cD8PkLNcileGGcA21PFjVl0jzDaw==
+
+node-fetch-native@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/node-fetch-native/-/node-fetch-native-1.1.0.tgz#a530f5c4cadb49b382dcf81d8f5f19ed0f457fbe"
   integrity sha512-nl5goFCig93JZ9FIV8GHT9xpNqXbxQUzkOmKIMKmncsBH9jhg7qKex8hirpymkBFmNQ114chEEG5lS4wgK2I+Q==
@@ -3497,21 +3502,21 @@ universalify@^2.0.0:
   integrity sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
 
 unstorage@^1.0.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/unstorage/-/unstorage-1.5.0.tgz#0e1b6939ac17a3d6d1d7c44abe8dacb48ebcb464"
-  integrity sha512-bL6sHwTKp2ns0SAGNHAbLP9LwmtPGMtaOVrHRA4V8ngQMHQR18q0uRgkeGB4qF84XSDu/o8ebv54p/HBJESXFA==
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/unstorage/-/unstorage-1.6.1.tgz#144ea7d36852b69b74009e3bafa947154f6ac2c0"
+  integrity sha512-GUJzwbP5IStEGZy9/0peRqef5CY9icqApsSu8vxj13admjISyz1g5eYk2wPRBjmZhQ3DUMQ36q+zwTbe68khew==
   dependencies:
     anymatch "^3.1.3"
     chokidar "^3.5.3"
     destr "^1.2.2"
-    h3 "^1.6.4"
+    h3 "^1.6.6"
     ioredis "^5.3.2"
     listhen "^1.0.4"
-    lru-cache "^9.0.3"
+    lru-cache "^9.1.1"
     mri "^1.2.0"
-    node-fetch-native "^1.1.0"
+    node-fetch-native "^1.1.1"
     ofetch "^1.0.1"
-    ufo "^1.1.1"
+    ufo "^1.1.2"
 
 uri-js@^4.2.2:
   version "4.4.1"
