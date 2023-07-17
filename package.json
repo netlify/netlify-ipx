@@ -32,7 +32,7 @@
     "@netlify/ipx": "link:.",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@types/etag": "^1.8.1",
-    "@types/fs-extra": "^9.0.13",
+    "@types/fs-extra": "^11.0.0",
     "@types/node-fetch": "^2.6.1",
     "ava": "^5.0.0",
     "esbuild-node-loader": "^0.8.0",
