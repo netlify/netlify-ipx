@@ -62,8 +62,7 @@ test('source image cache pruning', async (t) => {
         multiValueQueryStringParameters: {},
         multiValueHeaders: {},
         isBase64Encoded: false,
-        body: null,
-        netlifyGraphToken: undefined
+        body: null
       },
       {
         functionName: 'ipx',
@@ -75,16 +74,15 @@ test('source image cache pruning', async (t) => {
         logStreamName: '',
         memoryLimitInMB: '',
         getRemainingTimeInMillis: () => 1000,
-        done: () => {},
-        fail: () => {},
-        succeed: () => {}
+        done: () => { },
+        fail: () => { },
+        succeed: () => { }
       }
     )
     if (response) {
       t.is(response.statusCode, 200)
     }
   }
-
 
   const cacheSize = readdirSync(join(cacheDir, 'cache')).reduce((acc, filename) => {
     const { size } = statSync(join(cacheDir, 'cache', filename))
