@@ -6,6 +6,9 @@ import { parseURL } from 'ufo'
 import etag from 'etag'
 import { loadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
+
+const WAF_BYPASS_TOKEN_HEADER = 'X-Nf-Waf-Bypass-Token'
+
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
   /**
    * Path to cache directory
@@ -94,6 +97,13 @@ export function createIPXHandler ({
     const requestHeaders: Record<string, string> = {
       [SUBREQUEST_HEADER]: '1'
     }
+
+    // This header is available to all lambdas that went through WAF
+    if (event.headers[WAF_BYPASS_TOKEN_HEADER]) {
+      requestHeaders[WAF_BYPASS_TOKEN_HEADER] =
+        event.headers[WAF_BYPASS_TOKEN_HEADER]
+    }
+
     const isLocal = !id.startsWith('http://') && !id.startsWith('https://')
     if (isLocal) {
       const url = new URL(event.rawUrl)
