@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "prepack": "yarn build",
-    "lint": "yarn eslint --ext .ts,.js,.mjs src",
+    "lint": "yarn eslint --ext .ts,.js,.mjs src test",
     "test": "ava",
     "dev": "netlify dev"
   },
