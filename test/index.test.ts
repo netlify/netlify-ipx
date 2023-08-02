@@ -7,7 +7,7 @@ import { readFile, statSync, emptyDir, readdirSync } from 'fs-extra'
 import { createIPXHandler } from '../src/index'
 import { CACHE_PRUNING_THRESHOLD, SourceImageResult } from '../src/http'
 
-function getTestContext () {
+function getHandlerContext () {
   return {
     functionName: 'ipx',
     callbackWaitsForEmptyEventLoop: false,
@@ -81,7 +81,7 @@ test('source image cache pruning', async (t) => {
         isBase64Encoded: false,
         body: null
       },
-      getTestContext()
+      getHandlerContext()
     )
     if (response) {
       t.is(response.statusCode, 200)
@@ -125,7 +125,7 @@ test('should add WAF headers to local images being transformed', async (t) => {
       isBase64Encoded: false,
       body: null
     },
-    getTestContext()
+    getHandlerContext()
   )
 })
 
@@ -153,7 +153,7 @@ test('should not add WAF headers to local images being transformed', async (t) =
       isBase64Encoded: false,
       body: null
     },
-    getTestContext()
+    getHandlerContext()
   )
 })
 test('should not add WAF headers to local images if WAF is disabled', async (t) => {
@@ -180,6 +180,6 @@ test('should not add WAF headers to local images if WAF is disabled', async (t) 
       isBase64Encoded: false,
       body: null
     },
-    getTestContext()
+    getHandlerContext()
   )
 })
