@@ -7,6 +7,23 @@ import { readFile, statSync, emptyDir, readdirSync } from 'fs-extra'
 import { createIPXHandler } from '../src/index'
 import { CACHE_PRUNING_THRESHOLD, SourceImageResult } from '../src/http'
 
+function getTestContext () {
+  return {
+    functionName: 'ipx',
+    callbackWaitsForEmptyEventLoop: false,
+    functionVersion: '1',
+    invokedFunctionArn: '',
+    awsRequestId: '',
+    logGroupName: '',
+    logStreamName: '',
+    memoryLimitInMB: '',
+    getRemainingTimeInMillis: () => 1000,
+    done: () => { },
+    fail: () => { },
+    succeed: () => { }
+  }
+}
+
 test('source image cache pruning', async (t) => {
   const filePath = join(__dirname, '..', 'example', 'public', 'img', 'test.jpg')
   const port = 8125
@@ -64,20 +81,7 @@ test('source image cache pruning', async (t) => {
         isBase64Encoded: false,
         body: null
       },
-      {
-        functionName: 'ipx',
-        callbackWaitsForEmptyEventLoop: false,
-        functionVersion: '1',
-        invokedFunctionArn: '',
-        awsRequestId: '',
-        logGroupName: '',
-        logStreamName: '',
-        memoryLimitInMB: '',
-        getRemainingTimeInMillis: () => 1000,
-        done: () => { },
-        fail: () => { },
-        succeed: () => { }
-      }
+      getTestContext()
     )
     if (response) {
       t.is(response.statusCode, 200)
@@ -121,20 +125,7 @@ test('should add WAF headers to local images being transformed', async (t) => {
       isBase64Encoded: false,
       body: null
     },
-    {
-      functionName: 'ipx',
-      callbackWaitsForEmptyEventLoop: false,
-      functionVersion: '1',
-      invokedFunctionArn: '',
-      awsRequestId: '',
-      logGroupName: '',
-      logStreamName: '',
-      memoryLimitInMB: '',
-      getRemainingTimeInMillis: () => 1000,
-      done: () => { },
-      fail: () => { },
-      succeed: () => { }
-    }
+    getTestContext()
   )
 })
 
@@ -162,20 +153,7 @@ test('should not add WAF headers to local images being transformed', async (t) =
       isBase64Encoded: false,
       body: null
     },
-    {
-      functionName: 'ipx',
-      callbackWaitsForEmptyEventLoop: false,
-      functionVersion: '1',
-      invokedFunctionArn: '',
-      awsRequestId: '',
-      logGroupName: '',
-      logStreamName: '',
-      memoryLimitInMB: '',
-      getRemainingTimeInMillis: () => 1000,
-      done: () => { },
-      fail: () => { },
-      succeed: () => { }
-    }
+    getTestContext()
   )
 })
 test('should not add WAF headers to local images if WAF is disabled', async (t) => {
@@ -202,19 +180,6 @@ test('should not add WAF headers to local images if WAF is disabled', async (t) 
       isBase64Encoded: false,
       body: null
     },
-    {
-      functionName: 'ipx',
-      callbackWaitsForEmptyEventLoop: false,
-      functionVersion: '1',
-      invokedFunctionArn: '',
-      awsRequestId: '',
-      logGroupName: '',
-      logStreamName: '',
-      memoryLimitInMB: '',
-      getRemainingTimeInMillis: () => 1000,
-      done: () => { },
-      fail: () => { },
-      succeed: () => { }
-    }
+    getTestContext()
   )
 })
