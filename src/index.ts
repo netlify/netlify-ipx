@@ -4,7 +4,7 @@ import { createIPX, handleRequest, IPXOptions } from 'ipx'
 import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
-import { loadSourceImage } from './http'
+import { loadSourceImage as defaultLoadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
 
 // WAF is Web Application Firewall
@@ -46,7 +46,7 @@ const plainText = {
   'Content-Type': 'text/plain'
 }
 
-export function createIPXHandler({
+export function createIPXHandler ({
   cacheDir = join(tmpdir(), 'ipx-cache'),
   basePath = '/_ipx/',
   propsEncoding,
@@ -55,7 +55,7 @@ export function createIPXHandler({
   responseHeaders,
   localPrefix,
   ...opts
-}: IPXHandlerOptions = {}) {
+}: IPXHandlerOptions = {}, loadSourceImage = defaultLoadSourceImage) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
