@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.2](https://github.com/netlify/netlify-ipx/compare/v1.4.1...v1.4.2) (2023-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-fetch to v2.6.12 ([#169](https://github.com/netlify/netlify-ipx/issues/169)) ([6f08164](https://github.com/netlify/netlify-ipx/commit/6f08164358177e6c7555da572bf1d19a1899299a))
+* **deps:** update dependency ufo to v1.2.0 ([#177](https://github.com/netlify/netlify-ipx/issues/177)) ([bee9ce2](https://github.com/netlify/netlify-ipx/commit/bee9ce28612be72da3c70ee997a6b0987cb23b51))
+* **deps:** update dependency unstorage to v1.7.0 ([#166](https://github.com/netlify/netlify-ipx/issues/166)) ([5133543](https://github.com/netlify/netlify-ipx/commit/51335433beb2a18e2cd4c3e6fdad564ec52c7318))
+* **deps:** update dependency unstorage to v1.8.0 ([#175](https://github.com/netlify/netlify-ipx/issues/175)) ([f4e9933](https://github.com/netlify/netlify-ipx/commit/f4e993381be4bae781f9e423abf3ebf5d5b22188))
+* now WAF bypass token header is forwarded ([#178](https://github.com/netlify/netlify-ipx/issues/178)) ([95645b8](https://github.com/netlify/netlify-ipx/commit/95645b826b28d28059ad4303ccb14f5e084e55ce))
+
 ## [1.4.1](https://github.com/netlify/netlify-ipx/compare/v1.4.0...v1.4.1) (2023-06-12)
 
 
