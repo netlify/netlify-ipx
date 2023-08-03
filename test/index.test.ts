@@ -170,7 +170,7 @@ test('should not add WAF headers to local images if WAF is disabled', async (t) 
   await handler(
     {
       rawUrl: 'http://localhost:3000/some-path',
-      path: '/_ipx/w_500/https%3A%2F%2Fsome-site.com%2Fno-file.jpg',
+      path: '/_ipx/w_500/no-file.jpg',
       headers: {},
       rawQuery: '',
       httpMethod: 'GET',
