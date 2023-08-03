@@ -129,7 +129,7 @@ test('should add WAF headers to local images being transformed', async (t) => {
   )
 })
 
-test('should not add WAF headers to local images being transformed', async (t) => {
+test('should not add WAF headers to remote images being transformed', async (t) => {
   const handler = createIPXHandler({
     basePath: '/_ipx/',
     cacheDir: '/tmp/ipx-cache',
