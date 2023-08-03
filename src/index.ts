@@ -4,8 +4,12 @@ import { createIPX, handleRequest, IPXOptions } from 'ipx'
 import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
-import { loadSourceImage } from './http'
+import { loadSourceImage as defaultLoadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
+
+// WAF is Web Application Firewall
+const WAF_BYPASS_TOKEN_HEADER = 'X-Nf-Waf-Bypass-Token'
+
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
   /**
    * Path to cache directory
@@ -51,7 +55,7 @@ export function createIPXHandler ({
   responseHeaders,
   localPrefix,
   ...opts
-}: IPXHandlerOptions = {}) {
+}: IPXHandlerOptions = {}, loadSourceImage = defaultLoadSourceImage) {
   const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
@@ -94,8 +98,18 @@ export function createIPXHandler ({
     const requestHeaders: Record<string, string> = {
       [SUBREQUEST_HEADER]: '1'
     }
+
     const isLocal = !id.startsWith('http://') && !id.startsWith('https://')
     if (isLocal) {
+      // This header is available to all lambdas that went through WAF
+      // We need to add it for local images (origin server) to be able to bypass WAF
+      if (event.headers[WAF_BYPASS_TOKEN_HEADER]) {
+        // eslint-disable-next-line no-console
+        console.log(`WAF bypass token found, setting ${WAF_BYPASS_TOKEN_HEADER} header to load source image`)
+        requestHeaders[WAF_BYPASS_TOKEN_HEADER] =
+          event.headers[WAF_BYPASS_TOKEN_HEADER]
+      }
+
       const url = new URL(event.rawUrl)
       url.pathname = id
       if (localPrefix && !url.pathname.startsWith(localPrefix)) {

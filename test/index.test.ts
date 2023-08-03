@@ -5,7 +5,24 @@ import test from 'ava'
 import { readFile, statSync, emptyDir, readdirSync } from 'fs-extra'
 
 import { createIPXHandler } from '../src/index'
-import { CACHE_PRUNING_THRESHOLD } from '../src/http'
+import { CACHE_PRUNING_THRESHOLD, SourceImageResult } from '../src/http'
+
+function getHandlerContext () {
+  return {
+    functionName: 'ipx',
+    callbackWaitsForEmptyEventLoop: false,
+    functionVersion: '1',
+    invokedFunctionArn: '',
+    awsRequestId: '',
+    logGroupName: '',
+    logStreamName: '',
+    memoryLimitInMB: '',
+    getRemainingTimeInMillis: () => 1000,
+    done: () => { },
+    fail: () => { },
+    succeed: () => { }
+  }
+}
 
 test('source image cache pruning', async (t) => {
   const filePath = join(__dirname, '..', 'example', 'public', 'img', 'test.jpg')
@@ -64,20 +81,7 @@ test('source image cache pruning', async (t) => {
         isBase64Encoded: false,
         body: null
       },
-      {
-        functionName: 'ipx',
-        callbackWaitsForEmptyEventLoop: false,
-        functionVersion: '1',
-        invokedFunctionArn: '',
-        awsRequestId: '',
-        logGroupName: '',
-        logStreamName: '',
-        memoryLimitInMB: '',
-        getRemainingTimeInMillis: () => 1000,
-        done: () => { },
-        fail: () => { },
-        succeed: () => { }
-      }
+      getHandlerContext()
     )
     if (response) {
       t.is(response.statusCode, 200)
@@ -94,5 +98,88 @@ test('source image cache pruning', async (t) => {
     cacheSize,
     imageTestCount * size,
     'cache size should not be equal to number of images * image size if we exceed threshold'
+  )
+})
+
+test('should add WAF headers to local images being transformed', async (t) => {
+  const handler = createIPXHandler({
+    basePath: '/_ipx/',
+    cacheDir: '/tmp/ipx-cache',
+    bypassDomainCheck: true
+  }, (sourceImageOptions) => {
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === 'some token')
+
+    return Promise.resolve({ finalize: () => { } } as SourceImageResult)
+  })
+
+  await handler(
+    {
+      rawUrl: 'http://localhost:3000/some-path',
+      path: '/_ipx/w_500/no-file.jpg',
+      headers: { 'X-Nf-Waf-Bypass-Token': 'some token' },
+      rawQuery: '',
+      httpMethod: 'GET',
+      queryStringParameters: {},
+      multiValueQueryStringParameters: {},
+      multiValueHeaders: {},
+      isBase64Encoded: false,
+      body: null
+    },
+    getHandlerContext()
+  )
+})
+
+test('should not add WAF headers to remote images being transformed', async (t) => {
+  const handler = createIPXHandler({
+    basePath: '/_ipx/',
+    cacheDir: '/tmp/ipx-cache',
+    bypassDomainCheck: true
+  }, (sourceImageOptions) => {
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === undefined)
+
+    return Promise.resolve({ finalize: () => { } } as SourceImageResult)
+  })
+
+  await handler(
+    {
+      rawUrl: 'http://localhost:3000/some-path',
+      path: '/_ipx/w_500/https%3A%2F%2Fsome-site.com%2Fno-file.jpg',
+      headers: { 'X-Nf-Waf-Bypass-Token': 'some token' },
+      rawQuery: '',
+      httpMethod: 'GET',
+      queryStringParameters: {},
+      multiValueQueryStringParameters: {},
+      multiValueHeaders: {},
+      isBase64Encoded: false,
+      body: null
+    },
+    getHandlerContext()
+  )
+})
+test('should not add WAF headers to local images if WAF is disabled', async (t) => {
+  const handler = createIPXHandler({
+    basePath: '/_ipx/',
+    cacheDir: '/tmp/ipx-cache',
+    bypassDomainCheck: true
+  }, (sourceImageOptions) => {
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === undefined)
+
+    return Promise.resolve({ finalize: () => { } } as SourceImageResult)
+  })
+
+  await handler(
+    {
+      rawUrl: 'http://localhost:3000/some-path',
+      path: '/_ipx/w_500/no-file.jpg',
+      headers: {},
+      rawQuery: '',
+      httpMethod: 'GET',
+      queryStringParameters: {},
+      multiValueQueryStringParameters: {},
+      multiValueHeaders: {},
+      isBase64Encoded: false,
+      body: null
+    },
+    getHandlerContext()
   )
 })
