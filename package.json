@@ -22,7 +22,7 @@
     "fs-extra": "^11.0.0",
     "ipx": "^1.0.0",
     "micromatch": "^4.0.5",
-    "mkdirp": "^1.0.4",
+    "mkdirp": "^3.0.0",
     "murmurhash": "^2.0.0",
     "node-fetch": "^2.0.0",
     "ufo": "^1.0.0",
