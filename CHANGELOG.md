@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.3](https://github.com/netlify/netlify-ipx/compare/v1.4.2...v1.4.3) (2023-08-10)
+
+
+### Bug Fixes
+
+* casing now matches what comes in a Netlify function via event.headers ([#181](https://github.com/netlify/netlify-ipx/issues/181)) ([978f4c8](https://github.com/netlify/netlify-ipx/commit/978f4c868e06d8f4df1a1651ebecf1cffeeb4bba))
+* **deps:** update dependency mkdirp to v3 ([#162](https://github.com/netlify/netlify-ipx/issues/162)) ([d946c42](https://github.com/netlify/netlify-ipx/commit/d946c427f2f33aad52cfe956217831400ffc66db))
+
 ## [1.4.2](https://github.com/netlify/netlify-ipx/compare/v1.4.1...v1.4.2) (2023-08-03)
 
 
