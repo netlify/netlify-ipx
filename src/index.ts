@@ -8,7 +8,7 @@ import { loadSourceImage as defaultLoadSourceImage } from './http'
 import { decodeBase64Params, doPatternsMatchUrl, RemotePattern } from './utils'
 
 // WAF is Web Application Firewall
-const WAF_BYPASS_TOKEN_HEADER = 'X-Nf-Waf-Bypass-Token'
+const WAF_BYPASS_TOKEN_HEADER = 'x-nf-waf-bypass-token'
 
 export interface IPXHandlerOptions extends Partial<IPXOptions> {
   /**

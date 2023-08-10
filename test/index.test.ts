@@ -107,7 +107,7 @@ test('should add WAF headers to local images being transformed', async (t) => {
     cacheDir: '/tmp/ipx-cache',
     bypassDomainCheck: true
   }, (sourceImageOptions) => {
-    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === 'some token')
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['x-nf-waf-bypass-token'] === 'some token')
 
     return Promise.resolve({ finalize: () => { } } as SourceImageResult)
   })
@@ -116,7 +116,7 @@ test('should add WAF headers to local images being transformed', async (t) => {
     {
       rawUrl: 'http://localhost:3000/some-path',
       path: '/_ipx/w_500/no-file.jpg',
-      headers: { 'X-Nf-Waf-Bypass-Token': 'some token' },
+      headers: { 'x-nf-waf-bypass-token': 'some token' },
       rawQuery: '',
       httpMethod: 'GET',
       queryStringParameters: {},
@@ -135,7 +135,7 @@ test('should not add WAF headers to remote images being transformed', async (t) 
     cacheDir: '/tmp/ipx-cache',
     bypassDomainCheck: true
   }, (sourceImageOptions) => {
-    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === undefined)
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['x-nf-waf-bypass-token'] === undefined)
 
     return Promise.resolve({ finalize: () => { } } as SourceImageResult)
   })
@@ -144,7 +144,7 @@ test('should not add WAF headers to remote images being transformed', async (t) 
     {
       rawUrl: 'http://localhost:3000/some-path',
       path: '/_ipx/w_500/https%3A%2F%2Fsome-site.com%2Fno-file.jpg',
-      headers: { 'X-Nf-Waf-Bypass-Token': 'some token' },
+      headers: { 'x-nf-waf-bypass-token': 'some token' },
       rawQuery: '',
       httpMethod: 'GET',
       queryStringParameters: {},
@@ -162,7 +162,7 @@ test('should not add WAF headers to local images if WAF is disabled', async (t) 
     cacheDir: '/tmp/ipx-cache',
     bypassDomainCheck: true
   }, (sourceImageOptions) => {
-    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['X-Nf-Waf-Bypass-Token'] === undefined)
+    t.assert(sourceImageOptions.requestHeaders && sourceImageOptions.requestHeaders['x-nf-waf-bypass-token'] === undefined)
 
     return Promise.resolve({ finalize: () => { } } as SourceImageResult)
   })
