@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.4](https://github.com/netlify/netlify-ipx/compare/v1.4.3...v1.4.4) (2023-08-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/functions to v2 ([#188](https://github.com/netlify/netlify-ipx/issues/188)) ([fbdab27](https://github.com/netlify/netlify-ipx/commit/fbdab275881e518d5390964518019d21d33644b0))
+* **deps:** update dependency node-fetch to v2.6.13 ([#187](https://github.com/netlify/netlify-ipx/issues/187)) ([9f6ad31](https://github.com/netlify/netlify-ipx/commit/9f6ad31b5864132dd522fb8600ba91dab1432a0f))
+* **deps:** update dependency unstorage to v1.9.0 ([#184](https://github.com/netlify/netlify-ipx/issues/184)) ([65e6b25](https://github.com/netlify/netlify-ipx/commit/65e6b251bb630ca16c3f48bca47e81c84b4f036c))
+
 ## [1.4.3](https://github.com/netlify/netlify-ipx/compare/v1.4.2...v1.4.3) (2023-08-10)
 
 
