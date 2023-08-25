@@ -124,12 +124,12 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@netlify/functions@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-2.0.1.tgz#97122db5d21cb5a4dfb267485ea242d77d0433e9"
-  integrity sha512-YrgCmz078II0LKknXKj5NbtGBuzek1JC+ZYi4xHcLhZD+HIGlerlmkhnVydWVPoA7fdd2IeSUd9CFFL7bY+y5Q==
+"@netlify/functions@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-2.0.2.tgz#b5162058434fd00e280e4b28283f6bb8a2840c5c"
+  integrity sha512-goWRtaIPUK/q47qLYtfGGj7HgJIRaT0snw7zZ0yeoNTfQfCRwQwvRrMAsXkCsCtq2N2Oo81L26SpkMxEQMk9hg==
   dependencies:
-    "@netlify/serverless-functions-api" "1.7.1"
+    "@netlify/serverless-functions-api" "1.7.3"
     is-promise "^4.0.0"
 
 "@netlify/ipx@link:.":
@@ -140,10 +140,10 @@
   resolved "https://registry.yarnpkg.com/@netlify/node-cookies/-/node-cookies-0.1.0.tgz#dda912ba618527695cf519fafa221c5e6777c612"
   integrity sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==
 
-"@netlify/serverless-functions-api@1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.7.1.tgz#325a972f4d2b0035c87c8c372ded3554f4b3cfa2"
-  integrity sha512-vF9g62n+BFfBXtWtmVBJ5debyMERVDtuLlMlKDPYBp6QjEuJnaggxczLlRofZ2mtsBXs7mAlna6gIcBswFLJJQ==
+"@netlify/serverless-functions-api@1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.7.3.tgz#74efc650fcbca7c25211bb49df826795cf53f072"
+  integrity sha512-n6/7cJlSWvvbBlUOEAbkGyEld80S6KbG/ldQI9OhLfe1lTatgKmrTNIgqVNpaWpUdTgP2OHWFjmFBzkxxBWs5w==
   dependencies:
     "@netlify/node-cookies" "^0.1.0"
     urlpattern-polyfill "8.0.2"
