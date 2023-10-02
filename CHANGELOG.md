@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.5](https://github.com/netlify/netlify-ipx/compare/v1.4.4...v1.4.5) (2023-10-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/functions to ^2.0.2 ([#189](https://github.com/netlify/netlify-ipx/issues/189)) ([1839eb1](https://github.com/netlify/netlify-ipx/commit/1839eb16d009bd7e2e1ca3274e01ed24f3809b4d))
+* **deps:** update dependency @netlify/functions to ^2.1.0 ([#204](https://github.com/netlify/netlify-ipx/issues/204)) ([90e707c](https://github.com/netlify/netlify-ipx/commit/90e707c02c36ada4a89effd46921a25bd63ed0c6))
+* **deps:** update dependency ipx to v1.3.0 ([#198](https://github.com/netlify/netlify-ipx/issues/198)) ([2191a92](https://github.com/netlify/netlify-ipx/commit/2191a922a0fc99f7dfa734643af2ca74220aeb13))
+* **deps:** update dependency node-fetch to v2.7.0 ([#194](https://github.com/netlify/netlify-ipx/issues/194)) ([a9e82dc](https://github.com/netlify/netlify-ipx/commit/a9e82dc772a95443124a723b68216e6ecb910b8a))
+* **deps:** update dependency ufo to v1.3.0 ([#195](https://github.com/netlify/netlify-ipx/issues/195)) ([13afa43](https://github.com/netlify/netlify-ipx/commit/13afa43a1a65e2c0a936f79eca9169f398f43048))
+* **deps:** update dependency ufo to v1.3.1 ([#205](https://github.com/netlify/netlify-ipx/issues/205)) ([3dec84e](https://github.com/netlify/netlify-ipx/commit/3dec84e35deebb925b2a84f682cd1030920238de))
+* update to `ipx@1.3.1` ([#206](https://github.com/netlify/netlify-ipx/issues/206)) ([fb85196](https://github.com/netlify/netlify-ipx/commit/fb851968efbae466bdc7c73528f973b6d5579615))
+
 ## [1.4.4](https://github.com/netlify/netlify-ipx/compare/v1.4.3...v1.4.4) (2023-08-22)
 
 
