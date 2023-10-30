@@ -1,6 +1,6 @@
 import { createIPXHandler } from '@netlify/ipx'
 
-export const handler = createIPXHandler({
+const handle = createIPXHandler({
   remotePatterns: [
     {
       protocol: 'https',
@@ -17,3 +17,16 @@ export const handler = createIPXHandler({
     'X-Test': 'foobar'
   }
 })
+
+export const handler = async (event, context) => {
+  try {
+    return await handle(event, context)
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e)
+    return {
+      statusCode: 500,
+      body: 'Internal Server Error'
+    }
+  }
+}
