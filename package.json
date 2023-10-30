@@ -16,6 +16,9 @@
     "test": "ava",
     "dev": "netlify dev"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@netlify/functions": "^2.3.0",
     "etag": "^1.8.1",
