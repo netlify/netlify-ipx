@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { tmpdir } from 'os'
-import { createIPX, handleRequest, IPXOptions } from 'ipx'
+import { createIPX, createIPXPlainServer, ipxFSStorage, ipxHttpStorage, IPXOptions } from 'ipx'
 import { builder, Handler } from '@netlify/functions'
 import { parseURL } from 'ufo'
 import etag from 'etag'
@@ -31,6 +31,10 @@ export interface IPXHandlerOptions extends Partial<IPXOptions> {
    */
   localPrefix?: string
   /**
+   * List of domains to allow for remote images
+   */
+  domains?: string[]
+  /**
    * Patterns used to verify remote image URLs
    */
   remotePatterns?: RemotePattern[]
@@ -54,9 +58,21 @@ export function createIPXHandler ({
   remotePatterns,
   responseHeaders,
   localPrefix,
+  domains = [],
   ...opts
 }: IPXHandlerOptions = {}, loadSourceImage = defaultLoadSourceImage) {
-  const ipx = createIPX({ ...opts, dir: join(cacheDir, 'cache') })
+  const ipx = createIPX(
+    {
+      storage: ipxFSStorage({
+        dir: join(cacheDir, 'cache')
+      }),
+      httpStorage: ipxHttpStorage({
+        ...opts
+      })
+    })
+
+  const handleRequest = createIPXPlainServer(ipx)
+
   if (!basePath.endsWith('/')) {
     basePath = `${basePath}/`
   }
@@ -73,7 +89,7 @@ export function createIPXHandler ({
         headers: plainText
       }
     }
-    let domains = (opts as IPXOptions).domains || []
+
     const remoteURLPatterns = remotePatterns || []
     const requestEtag = event.headers['if-none-match']
     const eventPath = event.path.replace(basePath, '')
@@ -195,19 +211,21 @@ export function createIPXHandler ({
 
       const res = await handleRequest(
         {
-          url: `/${modifiers}/${cacheKey}`,
-          headers: event.headers
-        },
-        ipx
+          path: `/${modifiers}/${cacheKey}`,
+          headers: event.headers,
+          method: 'GET'
+        }
       )
 
+      const headers = Object.fromEntries(res.headers)
+
       const body =
-        typeof res.body === 'string' ? res.body : res.body.toString('base64')
+        typeof res.body === 'string' ? res.body : (res.body as Buffer).toString('base64')
 
-      res.headers.etag = responseEtag || JSON.parse(etag(body))
-      delete res.headers['Last-Modified']
+      headers.etag = responseEtag || JSON.parse(etag(body))
+      delete headers['Last-Modified']
 
-      if (requestEtag && requestEtag === res.headers.etag) {
+      if (requestEtag && requestEtag === headers.etag) {
         return {
           statusCode: 304,
           message: 'Not Modified'
@@ -216,14 +234,14 @@ export function createIPXHandler ({
 
       if (responseHeaders) {
         for (const [header, value] of Object.entries(responseHeaders)) {
-          res.headers[header] = value
+          headers[header] = value
         }
       }
 
       return {
-        statusCode: res.statusCode,
-        message: res.statusMessage,
-        headers: res.headers,
+        statusCode: res.status,
+        statusText: res.statusText,
+        headers,
         isBase64Encoded: typeof res.body !== 'string',
         body
       }
