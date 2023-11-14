@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.6](https://github.com/netlify/netlify-ipx/compare/v1.4.5...v1.4.6) (2023-11-14)
+
+
+### Bug Fixes
+
+* **deps:** pin unstorage to 1.9.0 ([#225](https://github.com/netlify/netlify-ipx/issues/225)) ([a81e620](https://github.com/netlify/netlify-ipx/commit/a81e620f6bdd506d818f1a26758163ec3b25724d))
+* **deps:** update dependency @netlify/functions to ^2.2.0 ([#207](https://github.com/netlify/netlify-ipx/issues/207)) ([7ea37de](https://github.com/netlify/netlify-ipx/commit/7ea37de51fe63190b886e47b8a75c187cfbee0af))
+* **deps:** update dependency @netlify/functions to ^2.2.1 ([#209](https://github.com/netlify/netlify-ipx/issues/209)) ([f2d4630](https://github.com/netlify/netlify-ipx/commit/f2d46300355a2594329013aa4ece1616839e22d8))
+* **deps:** update dependency @netlify/functions to ^2.3.0 ([#211](https://github.com/netlify/netlify-ipx/issues/211)) ([b981dc8](https://github.com/netlify/netlify-ipx/commit/b981dc8093acbcb1e5bf51363e8d22b3d4ba818c))
+* **deps:** update dependency @netlify/functions to ^2.4.0 ([#222](https://github.com/netlify/netlify-ipx/issues/222)) ([e71a227](https://github.com/netlify/netlify-ipx/commit/e71a2278092c391618b1bf27c557b0975296ea31))
+
 ## [1.4.5](https://github.com/netlify/netlify-ipx/compare/v1.4.4...v1.4.5) (2023-10-02)
 
 
