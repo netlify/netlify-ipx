@@ -137,10 +137,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@netlify/functions@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-2.5.0.tgz#bc5d181c26e058e2839e00df7c0515c7aff980d8"
-  integrity sha512-myXzRomzLISrckzrbi1JcvelFmDOEkYow5NoWGvn3t8vvjgCKcjvSblbhhXHiHE3sk2EQeEx2IQHXiicQxnsSA==
+"@netlify/functions@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-2.5.1.tgz#a3c111979cf14654267de8a2384348a066481b4e"
+  integrity sha512-7//hmiFHXGusAzuzEuXvRT9ItaeRjRs5lRs6lYUkaAXO1jnTWYDB2XdqFq5X4yMRX+/A96nrQ2HwCE+Pd0YMwg==
   dependencies:
     "@netlify/serverless-functions-api" "1.13.0"
     is-promise "^4.0.0"
