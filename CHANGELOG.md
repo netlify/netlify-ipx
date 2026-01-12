@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.7](https://github.com/netlify/netlify-ipx/compare/v1.4.6...v1.4.7) (2026-01-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/functions to ^2.4.1 ([#236](https://github.com/netlify/netlify-ipx/issues/236)) ([ce7a636](https://github.com/netlify/netlify-ipx/commit/ce7a636bb7b963d18268e822ef979876b892af37))
+* **deps:** update dependency @netlify/functions to ^2.5.0 ([#242](https://github.com/netlify/netlify-ipx/issues/242)) ([63ee1e9](https://github.com/netlify/netlify-ipx/commit/63ee1e97a173ac0c2d777b07a86fdfe3313cad76))
+* **deps:** update dependency @netlify/functions to ^2.5.1 ([#243](https://github.com/netlify/netlify-ipx/issues/243)) ([28c286f](https://github.com/netlify/netlify-ipx/commit/28c286f53113f45d718022cf6fbc5b201b020a89))
+* **deps:** update dependency @netlify/functions to ^2.6.0 ([#247](https://github.com/netlify/netlify-ipx/issues/247)) ([fc56702](https://github.com/netlify/netlify-ipx/commit/fc56702c8277632b2382768e4e56938db9fac14b))
+* **deps:** update dependency @netlify/functions to ^2.6.3 ([#253](https://github.com/netlify/netlify-ipx/issues/253)) ([095580d](https://github.com/netlify/netlify-ipx/commit/095580d76c29f76693b417844a7468d2817da154))
+* **deps:** update dependency @netlify/functions to ^2.7.0 ([#255](https://github.com/netlify/netlify-ipx/issues/255)) ([68bee54](https://github.com/netlify/netlify-ipx/commit/68bee54afbf7e365469cd9720cd2e479afdd0482))
+* **deps:** update dependency @netlify/functions to ^2.8.0 ([#260](https://github.com/netlify/netlify-ipx/issues/260)) ([7059e55](https://github.com/netlify/netlify-ipx/commit/7059e55b52de3309e7c0f001858a2c61fac717b0))
+* **deps:** update dependency @netlify/functions to ^2.8.1 ([#261](https://github.com/netlify/netlify-ipx/issues/261)) ([cf9b961](https://github.com/netlify/netlify-ipx/commit/cf9b961c5480be7f6fa1039b349ad9a0f80ee41c))
+* **deps:** update dependency @netlify/functions to ^2.8.2 ([#272](https://github.com/netlify/netlify-ipx/issues/272)) ([919234c](https://github.com/netlify/netlify-ipx/commit/919234c24f2dc92c3c72be9131bb7a859f31bb49))
+* **deps:** update dependency fs-extra to v11.2.0 ([#233](https://github.com/netlify/netlify-ipx/issues/233)) ([a37d5a4](https://github.com/netlify/netlify-ipx/commit/a37d5a4861c727dfc2c69c71d9c8b92a2d332020))
+* **deps:** update dependency fs-extra to v11.3.1 ([#270](https://github.com/netlify/netlify-ipx/issues/270)) ([49c955e](https://github.com/netlify/netlify-ipx/commit/49c955e3dc50c9e6810cbc21f65ac4e64fa955d3))
+* **deps:** update dependency ipx to v1.3.2 [security] ([#269](https://github.com/netlify/netlify-ipx/issues/269)) ([597c821](https://github.com/netlify/netlify-ipx/commit/597c8216ccd2df8140684b16bea7e3c2eaa819d7))
+* **deps:** update dependency micromatch to v4.0.7 ([#256](https://github.com/netlify/netlify-ipx/issues/256)) ([0f01946](https://github.com/netlify/netlify-ipx/commit/0f01946385d69a98ad780f26ddab47911dbf1386))
+* **deps:** update dependency micromatch to v4.0.8 ([#263](https://github.com/netlify/netlify-ipx/issues/263)) ([4037d71](https://github.com/netlify/netlify-ipx/commit/4037d718063323fd69b493d2cbee98942d6bba59))
+* **deps:** update dependency ufo to v1.3.2 ([#228](https://github.com/netlify/netlify-ipx/issues/228)) ([751be74](https://github.com/netlify/netlify-ipx/commit/751be749dea259d45fdabf2b8eee7e73e72a4182))
+* **deps:** update dependency ufo to v1.4.0 ([#246](https://github.com/netlify/netlify-ipx/issues/246)) ([b10acac](https://github.com/netlify/netlify-ipx/commit/b10acac52b7dcab648c615ac910ab3292f8afd53))
+* **deps:** update dependency ufo to v1.5.3 ([#251](https://github.com/netlify/netlify-ipx/issues/251)) ([85f616a](https://github.com/netlify/netlify-ipx/commit/85f616a225dc2a5e05020b47422f4f5e2206dfb3))
+* **deps:** update dependency ufo to v1.5.4 ([#262](https://github.com/netlify/netlify-ipx/issues/262)) ([2283e12](https://github.com/netlify/netlify-ipx/commit/2283e12ba0328a0f89184d199cc910e63e83883b))
+* **deps:** update dependency unstorage to v1.10.1 ([#231](https://github.com/netlify/netlify-ipx/issues/231)) ([26f7204](https://github.com/netlify/netlify-ipx/commit/26f720423a5f6397edcddf4785c69c187d7a0af8))
+* **deps:** update dependency unstorage to v1.10.2 ([#250](https://github.com/netlify/netlify-ipx/issues/250)) ([bb184ee](https://github.com/netlify/netlify-ipx/commit/bb184ee29bd428557f9c9fb6025c20a0c6305a4d))
+* **deps:** update dependency unstorage to v1.12.0 ([#264](https://github.com/netlify/netlify-ipx/issues/264)) ([ab14cb6](https://github.com/netlify/netlify-ipx/commit/ab14cb6dd21d80321c2f005b668d12b1e3e34fb2))
+* **deps:** update dependency unstorage to v1.17.3 ([#283](https://github.com/netlify/netlify-ipx/issues/283)) ([1aa741f](https://github.com/netlify/netlify-ipx/commit/1aa741face2ae5f08e4aa7b08779f805125b3bd8))
+
 ## [1.4.6](https://github.com/netlify/netlify-ipx/compare/v1.4.5...v1.4.6) (2023-11-14)
 
 
