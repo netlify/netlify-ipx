@@ -34,7 +34,7 @@
     "@types/etag": "^1.8.1",
     "@types/fs-extra": "^11.0.0",
     "@types/node-fetch": "^2.6.1",
-    "ava": "^5.0.0",
+    "ava": "^6.0.0",
     "esbuild-node-loader": "^0.8.0",
     "eslint": "8.57.1",
     "jiti": "^1.13.0",
