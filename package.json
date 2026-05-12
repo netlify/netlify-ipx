@@ -39,7 +39,7 @@
     "eslint": "8.57.1",
     "jiti": "^1.13.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.0"
   },
   "ava": {
     "extensions": [
