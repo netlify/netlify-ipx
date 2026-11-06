@@ -132,28 +132,33 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@netlify/functions@^2.8.2":
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-2.8.2.tgz#653395b901a74a6189e913a089f9cb90083ca6ce"
-  integrity sha512-DeoAQh8LuNPvBE4qsKlezjKj0PyXDryOFJfJKo3Z1qZLKzQ21sT314KQKPVjfvw6knqijj+IO+0kHXy/TJiqNA==
+"@netlify/cache@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@netlify/cache/-/cache-4.2.1.tgz#0e4520fc95f629d8cd84e5832a4b069771129282"
+  integrity sha512-10RASHobwpQ3DKKptwPen6zxpbNUBCE+5WWFufOlRwyfNjwhY95h3XuvPFLNQMuROcZY9Yiw++Xww+qkcLkZtw==
   dependencies:
-    "@netlify/serverless-functions-api" "1.26.1"
+    "@netlify/runtime-utils" "3.0.1"
+
+"@netlify/functions@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-6.1.1.tgz#1c0cd77b6f299a95ffa73d43d3629ec5e8ac1fe3"
+  integrity sha512-hTZaFcNZG+ntoAkDBRv+TMN6Nns6+mVAcMGtmXR3lCkhryxydpb2AUZDOz0zx9Zzb750R9UhoqcmfV06og9wFQ==
+  dependencies:
+    "@netlify/cache" "4.2.1"
+    "@netlify/types" "3.3.1"
 
 "@netlify/ipx@link:.":
   version "0.0.0"
 
-"@netlify/node-cookies@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@netlify/node-cookies/-/node-cookies-0.1.0.tgz#dda912ba618527695cf519fafa221c5e6777c612"
-  integrity sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==
+"@netlify/runtime-utils@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@netlify/runtime-utils/-/runtime-utils-3.0.1.tgz#df384594d7b60e3499c64de8759188ff1af4dade"
+  integrity sha512-PythjseqdFTvaTK28IiRZ/w0YOZKgyBDxiXuCNEwCBxidnKZ7najsOMtstwwzmsRtfHbmXHOB5NLaGCnvnvBTg==
 
-"@netlify/serverless-functions-api@1.26.1":
-  version "1.26.1"
-  resolved "https://registry.yarnpkg.com/@netlify/serverless-functions-api/-/serverless-functions-api-1.26.1.tgz#6d2792a7fdbb3a6b852c219e4fb13622b30a9ec5"
-  integrity sha512-q3L9i3HoNfz0SGpTIS4zTcKBbRkxzCRpd169eyiTuk3IwcPC3/85mzLHranlKo2b+HYT0gu37YxGB45aD8A3Tw==
-  dependencies:
-    "@netlify/node-cookies" "^0.1.0"
-    urlpattern-polyfill "8.0.2"
+"@netlify/types@3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@netlify/types/-/types-3.3.1.tgz#bfa21c44b901e273215d72220fe68c4235c7c9a5"
+  integrity sha512-LwPy3VpwMTETniJEgLr67yP8Rt8eORZaQ/NwVXhOOkv9q1F2SANSoJbfkhEmyLpwQ/aoPTAi0bULBDlFHXwEQA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -4049,11 +4054,6 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
-
-urlpattern-polyfill@8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/urlpattern-polyfill/-/urlpattern-polyfill-8.0.2.tgz#99f096e35eff8bf4b5a2aa7d58a1523d6ebc7ce5"
-  integrity sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2:
   version "1.0.2"
